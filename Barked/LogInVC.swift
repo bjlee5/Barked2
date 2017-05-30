@@ -107,20 +107,20 @@ class LogInVC: UIViewController {
     
     @IBAction func facebookLoginPress(_ sender: Any) {
     
-//                let facebookLogin = FBSDKLoginManager()
-//        
-//                facebookLogin.logIn(withReadPermissions: ["email"], from: self) { (result, error) in
-//                    if error != nil {
-//                        print("BRIAN: Unable to Authenticate")
-//                    } else if result?.isCancelled == true {
-//                        print("BRIAN: User canceled Facebook authentication")
-//                    } else {
-//                        print("BRIAN: Succesfully autheticated with Facebook")
-//                        let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
-//                        self.firebaseAuth(credential)
-//        
-//                    }
-//                }
+                let facebookLogin = FBSDKLoginManager()
+        
+                facebookLogin.logIn(withReadPermissions: ["email"], from: self) { (result, error) in
+                    if error != nil {
+                        print("BRIAN: Unable to Authenticate")
+                    } else if result?.isCancelled == true {
+                        print("BRIAN: User canceled Facebook authentication")
+                    } else {
+                        print("BRIAN: Succesfully autheticated with Facebook")
+                        let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+                        self.firebaseAuth(credential)
+        
+                    }
+                }
     }
     
 
@@ -132,18 +132,13 @@ class LogInVC: UIViewController {
     // Add Logic here for the Facebook users - if provider is Facebook and username == nil then reroute to editProfile VC... would then need to add logic to support blank username, pic, etc there...
     
     func completeSignIn(id: String, userData: Dictionary<String, String>) {
+        
         DataService.ds.createFirebaseDBUser(uid: id, userData: userData)
         let keychainResult = KeychainWrapper.standard.set(id, forKey: KEY_UID)
-//        
-//        if user?.providerID == "Faceebook" {
-//            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "EditProfileVC")
-//            self.present(vc, animated: true, completion: nil)
-//        }
         
         print("BRIAN: Segway completed \(keychainResult)")
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Tab")
         self.present(vc, animated: true, completion: nil)
-        
     }
 
     @IBAction func forgotPW(_ sender: Any) {

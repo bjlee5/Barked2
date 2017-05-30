@@ -30,10 +30,14 @@ class NewUserVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
 //    @IBOutlet weak var emailField: UITextField!
 //    @IBOutlet weak var profilePic: UIImageView!
 
+
+
     @IBOutlet weak var nameField: UITextField!
+
     @IBOutlet weak var usernameField: UITextField!
-    @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var emailField: UITextField!
+    @IBOutlet weak var passwordField: UITextField!
+
     @IBOutlet weak var profilePic: UIImageView!
     @IBOutlet weak var selectedPic: CircleView!
     @IBOutlet weak var pickerView: UIPickerView!
@@ -219,7 +223,7 @@ class NewUserVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         
     }
     
-    @IBAction func selectBreedPress(_ sender: Any) {
+    @IBAction func selectBreedPrs(_ sender: Any) {
         pickerView.isHidden = false
     }
     

@@ -245,7 +245,9 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     }
     
 
+ 
     @IBAction func deleteAccount(_ sender: Any) {
+    
         
         let appearance = SCLAlertView.SCLAppearance(
             showCloseButton: false
