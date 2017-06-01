@@ -94,6 +94,7 @@
 		D0E210AC1EB40FD100067DA9 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D0E210AE1EB40FDB00067DA9 /* ShowAlerts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowAlerts.swift; sourceTree = "<group>"; };
 		D0E210B01EB40FE300067DA9 /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
+		D0E343C81EDEF33400045EB4 /* Barked.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Barked.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +139,7 @@
 		D029CA7E1EB27D60009788CE /* Barked */ = {
 			isa = PBXGroup;
 			children = (
+				D0E343C81EDEF33400045EB4 /* Barked.entitlements */,
 				D0E2109D1EB40EE600067DA9 /* Services */,
 				D0E2109C1EB40EDF00067DA9 /* Utilities */,
 				D0E210891EB40D4600067DA9 /* Model */,
@@ -265,7 +267,13 @@
 				TargetAttributes = {
 					D029CA7B1EB27D60009788CE = {
 						CreatedOnToolsVersion = 8.2;
+						DevelopmentTeam = 6225SLKFTH;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -512,6 +520,8 @@
 			baseConfigurationReference = 29E9348A9208B1BA8035D183 /* Pods-Barked.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Barked/Barked.entitlements;
+				DEVELOPMENT_TEAM = 6225SLKFTH;
 				INFOPLIST_FILE = Barked/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lionseye.Barked;
@@ -525,6 +535,8 @@
 			baseConfigurationReference = 89E26C5A935EC24D70D0A101 /* Pods-Barked.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Barked/Barked.entitlements;
+				DEVELOPMENT_TEAM = 6225SLKFTH;
 				INFOPLIST_FILE = Barked/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lionseye.Barked;

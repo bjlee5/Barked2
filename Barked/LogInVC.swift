@@ -72,12 +72,15 @@ class LogInVC: UIViewController {
                 if let user = user {
                     let userData = ["email": self.loginField.text!, "password": self.passwordField.text!]
                     self.completeSignIn(id: user.uid, userData: userData)
+
                 }
+                
             }
-        })
+    })
         
-    }
-    
+}
+
+
     /* let userData = ["provider": user.providerID]
      self.completeSignIn(id: user.uid, userData: userData)*/
     
@@ -104,11 +107,11 @@ class LogInVC: UIViewController {
             }
         })
     }
+
     
     @IBAction func facebookLoginPress(_ sender: Any) {
     
                 let facebookLogin = FBSDKLoginManager()
-        
                 facebookLogin.logIn(withReadPermissions: ["email"], from: self) { (result, error) in
                     if error != nil {
                         print("BRIAN: Unable to Authenticate")
@@ -132,14 +135,14 @@ class LogInVC: UIViewController {
     // Add Logic here for the Facebook users - if provider is Facebook and username == nil then reroute to editProfile VC... would then need to add logic to support blank username, pic, etc there...
     
     func completeSignIn(id: String, userData: Dictionary<String, String>) {
-        
         DataService.ds.createFirebaseDBUser(uid: id, userData: userData)
         let keychainResult = KeychainWrapper.standard.set(id, forKey: KEY_UID)
-        
         print("BRIAN: Segway completed \(keychainResult)")
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Tab")
         self.present(vc, animated: true, completion: nil)
+
     }
+
 
     @IBAction func forgotPW(_ sender: Any) {
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ForgotPasswordVC")

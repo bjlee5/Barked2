@@ -215,8 +215,11 @@ class NewUserVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
     
     private func saveUserInfo(user: FIRUser!, username: String, name: String, password: String, breed: String, image: String) {
         
-        
         let userInfo = ["email": user.email!, "username": username , "name": name, "uid": user.uid , "breed": breed, "photoURL": image, "provider": user.providerID]
+        
+//        if FIRAuth.auth()!.currentUser?.providerData ==  {
+//            
+//        }
         
         self.completeSignIn(id: user.uid, userData: userInfo)
         print("BRIAN: User info has been saved to the database")
@@ -226,8 +229,6 @@ class NewUserVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
     @IBAction func selectBreedPrs(_ sender: Any) {
         pickerView.isHidden = false
     }
-    
-    
 
     @IBAction func backBtnPress(_ sender: Any) {
     
@@ -241,10 +242,11 @@ class NewUserVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         DataService.ds.createFirebaseDBUser(uid: id, userData: userData)
         let keychainResult = KeychainWrapper.standard.set(id, forKey: KEY_UID)
         print("BRIAN: Segway completed \(keychainResult)")
+        
+
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Tab")
         self.present(vc, animated: true, completion: nil)
-    }
-    
-}
 
+    }
+}
 

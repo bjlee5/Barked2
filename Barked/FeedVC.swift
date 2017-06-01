@@ -526,6 +526,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cell
             let user = Users(snapshot: snapshot)
             let imageURL = user.photoURL!
             self.currentUser.text = user.username
+
             
             /// We are downloading the current user's ImageURL then converting it using "data" to the UIImage which takes a property of data
             self.storageRef.reference(forURL: imageURL).data(withMaxSize: 1 * 1024 * 1024, completion: { (imgData, error) in
