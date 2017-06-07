@@ -10,11 +10,12 @@ import UIKit
 import Firebase
 import AudioToolbox
 
-class FriendsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UserCellSubclassDelegate {
+class FriendsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UserCellSubclassDelegate, UserCellProfilePressDelegate {
     
     var users = [Friend]()
     var filteredUsers = [Friend]()
     let searchController = UISearchController(searchResultsController: nil)
+    var selectedUID: String = ""
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -38,6 +39,29 @@ class FriendsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, U
         
     }
     
+    func profileBtnTapped(cell: UserCell) {
+        guard let indexPath = self.friendsTableView.indexPath(for: cell) else { return }
+        
+        //  Do whatever you need to do with the indexPath
+        
+        print("BRIAN: Button tapped on row \(indexPath.row)")
+        let clickedUser = users[indexPath.row].userID
+//        DataService.ds.REF_BASE.child("users/\(clickedUser)").observe(.value, with: { (snapshot) in
+//            
+//            let user = Friend()
+            self.selectedUID = clickedUser!
+            self.checkSelectedUID()
+//        })
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "FriendProfileVC" {
+            print("LEEZUS: Segway to FriendsVC performed!!")
+            let destinationViewController = segue.destination as! FriendProfileVC
+            destinationViewController.selectedUID = selectedUID
+        }
+    }
+            
     func buttonTapped(cell: UserCell) {
         
         var isFollower = false
@@ -95,6 +119,12 @@ class FriendsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, U
         ref.removeAllObservers()
         
     }
+    
+    func checkSelectedUID() {
+        if selectedUID != "" {
+            performSegue(withIdentifier: "FriendProfileVC", sender: self)
+    }
+}
     
     // Search Functionality
     
@@ -161,6 +191,7 @@ class FriendsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, U
         
         if let cell = friendsTableView.dequeueReusableCell(withIdentifier: "userCell", for: indexPath) as? UserCell {
             cell.userDelegate = self
+            cell.profileDelegate = self 
             cell.backgroundColor = UIColor.clear
             cell.configure(friend: someFriend, indexPath: someUID!)
             cell.checkFollowing(indexPath: someUID!)
@@ -169,7 +200,6 @@ class FriendsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, U
             return UserCell() 
         }
     }
-    
     
         
 //        if let cell = friendsTableView.dequeueReusableCell(withIdentifier: "userCell", for: indexPath) as? UserCell {

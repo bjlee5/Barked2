@@ -45,9 +45,18 @@ class MyProfileVC: UIViewController, UICollectionViewDataSource, UICollectionVie
     @IBOutlet weak var followingAmount: UILabel!
     @IBOutlet weak var bestInShowImage: UIImageView!
     @IBOutlet weak var breed: UILabel!
+    @IBOutlet weak var editBtn: RoundButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Button Animation
+        self.editBtn.setBackgroundColor(color: UIColor.clear, forState: .normal)
+        self.editBtn.setTitleColor(UIColor.white, for: .normal)
+        self.editBtn.setBackgroundColor(color: UIColor.white, forState: .highlighted)
+        self.editBtn.setTitleColor(UIColor.purple, for: .highlighted)
+        self.editBtn.setBackgroundColor(color: UIColor.white, forState: .selected)
+        self.editBtn.setTitleColor(UIColor.purple, for: .selected)
 
         fetchPosts()
         loadUserInfo()

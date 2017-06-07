@@ -16,6 +16,7 @@ class FriendProfileVC: UIViewController, UICollectionViewDataSource, UICollectio
     // Refactor storage reference //
     
     var selectedUID: String = ""
+    var selectedPost: Post!
     var posts = [Post]()
     static var imageCache: NSCache<NSString, UIImage> = NSCache()
     var profilePicLoaded = false
@@ -219,6 +220,22 @@ class FriendProfileVC: UIViewController, UICollectionViewDataSource, UICollectio
             
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "FriendPostVC" {
+            print("LEEZUS: Segway to DeletePost is performed!")
+            let destinationViewController = segue.destination as! FriendPostVC
+            destinationViewController.selectedPost = selectedPost
+        }
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as! ProfileCell
+        selectedPost = cell.post
+        performSegue(withIdentifier: "FriendPostVC", sender: self)
+    }
+    
     @IBAction func profileBtn(_ sender: Any) {
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MyProfileVC")
         self.present(vc, animated: true, completion: nil)

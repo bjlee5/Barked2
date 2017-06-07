@@ -13,6 +13,10 @@ protocol UserCellSubclassDelegate: class {
     func buttonTapped(cell: UserCell)
 }
 
+protocol UserCellProfilePressDelegate: class {
+    func profileBtnTapped(cell: UserCell)
+}
+
 
 class UserCell: UITableViewCell {
     
@@ -22,6 +26,7 @@ class UserCell: UITableViewCell {
     let ref = FIRDatabase.database().reference()
     var isFollower = false
     var userDelegate: UserCellSubclassDelegate?
+    var profileDelegate: UserCellProfilePressDelegate?
     
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var userName: UILabel!
@@ -90,6 +95,10 @@ class UserCell: UITableViewCell {
     @IBAction func followPress(_ sender: Any) {
         self.userDelegate?.buttonTapped(cell: self)
 
+    }
+    
+    @IBAction func labelPress(_ sender: Any) {
+        self.profileDelegate?.profileBtnTapped(cell: self)
     }
 
 }

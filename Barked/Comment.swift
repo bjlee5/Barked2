@@ -1,36 +1,27 @@
 //
-//  Post.swift
+//  Comment.swift
 //  Barked
 //
-//  Created by MacBook Air on 4/28/17.
+//  Created by MacBook Air on 6/6/17.
 //  Copyright © 2017 LionsEye. All rights reserved.
 //
 
 import Foundation
 import Firebase
 
-class Post {
+class Comment {
     private var _caption: String!
-    private var _imageURL: String!
-    private var _likes: Int!
     private var _postUser: String!
     private var _profilePicURL: String!
     private var _currentDate: String!
-    private var _bestInShow: Bool!
     private var _uid: String!
+    private var _likes: Int!
+    private var _commentRef: FIRDatabaseReference!
     private var _postKey: String!
-    private var _postRef: FIRDatabaseReference!
+    private var _commentKey: String!
     
     var caption: String {
         return _caption
-    }
-    
-    var imageURL: String {
-        return _imageURL
-    }
-    
-    var likes: Int {
-        return _likes
     }
     
     var postUser: String {
@@ -45,43 +36,38 @@ class Post {
         return _currentDate
     }
     
-    var bestInShow: Bool {
-        return _bestInShow
-    }
-    
     var uid: String {
         return _uid
+    }
+    
+    var likes: Int {
+        return _likes
     }
     
     var postKey: String {
         return _postKey
     }
     
+    var commentKey: String {
+        return _commentKey
+    }
     
-    init(caption: String, imageURL: String, likes: Int, postUser: String, profilePicURL: String, currentDate: String, bestInShow: Bool, uid: String) {
+    
+    init(caption: String, postUser: String, profilePicURL: String, currentDate: String, uid: String, likes: Int, commentKey: String) {
         self._caption = caption
-        self._imageURL = imageURL
-        self._likes = likes
         self._postUser = postUser
         self._uid = uid
         self._profilePicURL = profilePicURL
         self._currentDate = currentDate
-        self._bestInShow = false
+        self._likes = likes
     }
     
-    init(postKey: String, postData: Dictionary<String, Any>) {
+    init(postKey: String, commentKey: String, postData: Dictionary<String, Any>) {
         self._postKey = postKey
+        self._commentKey = commentKey
         
         if let caption = postData["caption"] as? String {
             self._caption = caption
-        }
-        
-        if let imageURL = postData["imageURL"] as? String {
-            self._imageURL = imageURL
-        }
-        
-        if let likes = postData["likes"] as? Int {
-            self._likes = likes
         }
         
         if let postUser = postData["postUser"] as? String {
@@ -97,16 +83,18 @@ class Post {
             self._currentDate = currentDate
         }
         
-        if let bestInShow = postData["bestInShow"] as? Bool {
-            self._bestInShow = bestInShow
-        }
-        
         if let uid =
             postData["uid"] as? String {
             self._uid = uid
         }
         
-        _postRef = DataService.ds.REF_POSTS.child(_postKey)
+        if let likes =
+            postData["likes"] as? Int {
+            self._likes = likes 
+        }
+        
+         _commentRef = DataService.ds.REF_POSTS.child(_postKey).child("comments").child(_commentKey)
+        
     }
     
     func adjustLikes(addLike: Bool) {
@@ -115,16 +103,9 @@ class Post {
         } else {
             _likes = _likes - 1
         }
-        _postRef.child("likes").setValue(_likes)
-    }
-    
-    func adjustBestInShow(addBest: Bool) {
-        if addBest {
-            _bestInShow = true
-        } else {
-            _bestInShow = false
-        }
-        _postRef.child("bestInShow").setValue(_bestInShow)
+        _commentRef.child("likes").setValue(_likes)
     }
     
 }
+
+

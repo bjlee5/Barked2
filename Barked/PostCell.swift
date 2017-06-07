@@ -15,10 +15,14 @@ protocol CellSubclassDelegate: class {
     func buttonTapped(cell: PostCell)
 }
 
+protocol CommentsSubclassDelegate: class {
+    func commentButtonTapped(cell: PostCell)
+}
+
 class PostCell: UITableViewCell {
     
-
     var delegate: CellSubclassDelegate?
+    var commentsDelegate: CommentsSubclassDelegate?
     var post: Post!
     var likesRef: FIRDatabaseReference!
     var storageRef: FIRStorage { return FIRStorage.storage() }
@@ -162,7 +166,12 @@ class PostCell: UITableViewCell {
     
     @IBAction func userPressed(_ sender: Any) {
         self.delegate?.buttonTapped(cell: self)
-}
+    }
+    
+    @IBAction func commentPressed(_ sender: Any) {
+        self.commentsDelegate?.commentButtonTapped(cell: self)
+    }
+    
     
     // Play Sounds
     

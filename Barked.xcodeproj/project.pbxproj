@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D001B4261EE860750007020D /* FriendPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = D001B4251EE860750007020D /* FriendPost.swift */; };
 		D029CA801EB27D60009788CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D029CA7F1EB27D60009788CE /* AppDelegate.swift */; };
 		D029CA821EB27D60009788CE /* LogInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D029CA811EB27D60009788CE /* LogInVC.swift */; };
 		D029CA851EB27D60009788CE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D029CA831EB27D60009788CE /* Main.storyboard */; };
@@ -30,6 +31,9 @@
 		D075DB111EBCC3F50099292E /* FriendProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D075DB101EBCC3F50099292E /* FriendProfileVC.swift */; };
 		D075DB361EC0A6080099292E /* BoarderedImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = D075DB351EC0A6080099292E /* BoarderedImages.swift */; };
 		D0790AB31ED8CB9100684667 /* Breeds.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0790AB21ED8CB9100684667 /* Breeds.swift */; };
+		D0BEC92A1EE71805000181DA /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BEC9291EE71805000181DA /* Comment.swift */; };
+		D0BEC92C1EE71854000181DA /* CommentsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BEC92B1EE71854000181DA /* CommentsCell.swift */; };
+		D0BEC92E1EE71874000181DA /* CommentsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BEC92D1EE71874000181DA /* CommentsVC.swift */; };
 		D0E2108D1EB40E2500067DA9 /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E2108C1EB40E2500067DA9 /* FeedVC.swift */; };
 		D0E2108F1EB40E3200067DA9 /* NewUserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E2108E1EB40E3200067DA9 /* NewUserVC.swift */; };
 		D0E210931EB40E5000067DA9 /* MyProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E210921EB40E5000067DA9 /* MyProfileVC.swift */; };
@@ -53,6 +57,8 @@
 		233005CB191446F2D86EEE1D /* Pods_Barked.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Barked.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		29E9348A9208B1BA8035D183 /* Pods-Barked.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Barked.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Barked/Pods-Barked.debug.xcconfig"; sourceTree = "<group>"; };
 		89E26C5A935EC24D70D0A101 /* Pods-Barked.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Barked.release.xcconfig"; path = "Pods/Target Support Files/Pods-Barked/Pods-Barked.release.xcconfig"; sourceTree = "<group>"; };
+		D001B4251EE860750007020D /* FriendPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendPost.swift; sourceTree = "<group>"; };
+		D001B4271EE882BA0007020D /* Barked.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Barked.entitlements; sourceTree = "<group>"; };
 		D029CA7C1EB27D60009788CE /* Barked.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Barked.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D029CA7F1EB27D60009788CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D029CA811EB27D60009788CE /* LogInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInVC.swift; sourceTree = "<group>"; };
@@ -78,6 +84,9 @@
 		D075DB101EBCC3F50099292E /* FriendProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendProfileVC.swift; sourceTree = "<group>"; };
 		D075DB351EC0A6080099292E /* BoarderedImages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoarderedImages.swift; sourceTree = "<group>"; };
 		D0790AB21ED8CB9100684667 /* Breeds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Breeds.swift; sourceTree = "<group>"; };
+		D0BEC9291EE71805000181DA /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		D0BEC92B1EE71854000181DA /* CommentsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsCell.swift; sourceTree = "<group>"; };
+		D0BEC92D1EE71874000181DA /* CommentsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsVC.swift; sourceTree = "<group>"; };
 		D0E2108C1EB40E2500067DA9 /* FeedVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
 		D0E2108E1EB40E3200067DA9 /* NewUserVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewUserVC.swift; sourceTree = "<group>"; };
 		D0E210921EB40E5000067DA9 /* MyProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyProfileVC.swift; sourceTree = "<group>"; };
@@ -138,6 +147,7 @@
 		D029CA7E1EB27D60009788CE /* Barked */ = {
 			isa = PBXGroup;
 			children = (
+				D001B4271EE882BA0007020D /* Barked.entitlements */,
 				D0E2109D1EB40EE600067DA9 /* Services */,
 				D0E2109C1EB40EDF00067DA9 /* Utilities */,
 				D0E210891EB40D4600067DA9 /* Model */,
@@ -166,6 +176,7 @@
 				D0E210A81EB40FB400067DA9 /* Friend.swift */,
 				D0E210AA1EB40FBF00067DA9 /* Post.swift */,
 				D0790AB21ED8CB9100684667 /* Breeds.swift */,
+				D0BEC9291EE71805000181DA /* Comment.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -177,6 +188,7 @@
 				D0E210A01EB40F5200067DA9 /* ProfileCell.swift */,
 				D0E210A21EB40F5C00067DA9 /* UserCell.swift */,
 				D075DB0C1EBC9AB00099292E /* DeletePostCell.swift */,
+				D0BEC92B1EE71854000181DA /* CommentsCell.swift */,
 				D0E210A41EB40F7000067DA9 /* SexyView.swift */,
 				D075DAE81EB8C2800099292E /* CircleView.swift */,
 				D075DAEA1EB8C2DC0099292E /* SexyButton.swift */,
@@ -194,11 +206,13 @@
 				D029CA811EB27D60009788CE /* LogInVC.swift */,
 				D0E2108E1EB40E3200067DA9 /* NewUserVC.swift */,
 				D0E2108C1EB40E2500067DA9 /* FeedVC.swift */,
+				D0BEC92D1EE71874000181DA /* CommentsVC.swift */,
 				D075DAE11EB79E880099292E /* PostVC.swift */,
 				D0E210961EB40E6F00067DA9 /* FriendsVC.swift */,
 				D075DB101EBCC3F50099292E /* FriendProfileVC.swift */,
 				D0E210921EB40E5000067DA9 /* MyProfileVC.swift */,
 				D075DB0A1EBB5FFB0099292E /* DeletePostVC.swift */,
+				D001B4251EE860750007020D /* FriendPost.swift */,
 				D0E210941EB40E6300067DA9 /* EditProfileVC.swift */,
 				D0E210981EB40EA000067DA9 /* ForgotPasswordVC.swift */,
 			);
@@ -265,7 +279,13 @@
 				TargetAttributes = {
 					D029CA7B1EB27D60009788CE = {
 						CreatedOnToolsVersion = 8.2;
+						DevelopmentTeam = 6225SLKFTH;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -366,6 +386,7 @@
 				D0E210AB1EB40FBF00067DA9 /* Post.swift in Sources */,
 				D0E2108D1EB40E2500067DA9 /* FeedVC.swift in Sources */,
 				D075DB111EBCC3F50099292E /* FriendProfileVC.swift in Sources */,
+				D001B4261EE860750007020D /* FriendPost.swift in Sources */,
 				D075DB0D1EBC9AB00099292E /* DeletePostCell.swift in Sources */,
 				D029CA821EB27D60009788CE /* LogInVC.swift in Sources */,
 				D075DAEB1EB8C2DC0099292E /* SexyButton.swift in Sources */,
@@ -373,17 +394,20 @@
 				D029CA881EB27D60009788CE /* Barked.xcdatamodeld in Sources */,
 				D075DB0B1EBB5FFB0099292E /* DeletePostVC.swift in Sources */,
 				D0E210991EB40EA000067DA9 /* ForgotPasswordVC.swift in Sources */,
+				D0BEC92E1EE71874000181DA /* CommentsVC.swift in Sources */,
 				D075DAE91EB8C2800099292E /* CircleView.swift in Sources */,
 				D075DB361EC0A6080099292E /* BoarderedImages.swift in Sources */,
 				D0E210A71EB40FAD00067DA9 /* User.swift in Sources */,
 				D0E210951EB40E6300067DA9 /* EditProfileVC.swift in Sources */,
 				D0E2109F1EB40F1B00067DA9 /* PostCell.swift in Sources */,
+				D0BEC92C1EE71854000181DA /* CommentsCell.swift in Sources */,
 				D0E210971EB40E6F00067DA9 /* FriendsVC.swift in Sources */,
 				D029CA801EB27D60009788CE /* AppDelegate.swift in Sources */,
 				D0E210AF1EB40FDB00067DA9 /* ShowAlerts.swift in Sources */,
 				D0E210A51EB40F7000067DA9 /* SexyView.swift in Sources */,
 				D0E210A11EB40F5200067DA9 /* ProfileCell.swift in Sources */,
 				D0E210A91EB40FB400067DA9 /* Friend.swift in Sources */,
+				D0BEC92A1EE71805000181DA /* Comment.swift in Sources */,
 				D075DAF51EBA40260099292E /* BorderedButton.swift in Sources */,
 				D075DAE21EB79E880099292E /* PostVC.swift in Sources */,
 				D0E210AD1EB40FD100067DA9 /* Constants.swift in Sources */,
@@ -512,6 +536,8 @@
 			baseConfigurationReference = 29E9348A9208B1BA8035D183 /* Pods-Barked.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Barked/Barked.entitlements;
+				DEVELOPMENT_TEAM = 6225SLKFTH;
 				INFOPLIST_FILE = Barked/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lionseye.Barked;
@@ -525,6 +551,8 @@
 			baseConfigurationReference = 89E26C5A935EC24D70D0A101 /* Pods-Barked.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Barked/Barked.entitlements;
+				DEVELOPMENT_TEAM = 6225SLKFTH;
 				INFOPLIST_FILE = Barked/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lionseye.Barked;

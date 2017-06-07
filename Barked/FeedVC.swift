@@ -11,7 +11,7 @@ import Firebase
 import SwiftKeychainWrapper
 import Foundation
 
-class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, CellSubclassDelegate {
+class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, CellSubclassDelegate, CommentsSubclassDelegate {
     
     
 ////////////////// bestInShow() - the function I have may work - however I need to make a call to Firebase to change the bestInShow value 
@@ -26,6 +26,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cell
     /// Referencing the Storage DB then, current User
     let userRef = DataService.ds.REF_BASE.child("users/\(FIRAuth.auth()!.currentUser!.uid)")
     var selectedUID: String = ""
+    var selectedPost: Post! 
 
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -623,7 +624,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cell
                 self.decemberBestInShow()
             }
         })
-        
     }
     
     // User Feed //
@@ -639,6 +639,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cell
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as? PostCell {
             cell.delegate = self
+            cell.commentsDelegate = self
             
             if post.bestInShow == true {
                 cell.bestShowPic.isHidden = false
@@ -646,7 +647,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cell
                 cell.bestShowPic.isHidden = true
             }
 
-            
             // Cell Styling
             
             cell.layer.borderWidth = 1.0
@@ -670,13 +670,15 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cell
             print("LEEZUS: Segway to FriendsVC performed!!")
             let destinationViewController = segue.destination as! FriendProfileVC
             destinationViewController.selectedUID = selectedUID
+        } else if segue.identifier == "CommentsVC" {
+            print("LEEZUS: Segway to Comments VC is performed!!!")
+            let destinationViewController = segue.destination as! CommentsVC
+            destinationViewController.selectedPost = selectedPost
         }
     }
     
     func buttonTapped(cell: PostCell) {
-        guard let indexPath = self.tableView.indexPath(for: cell) else {
-        return
-        }
+        guard let indexPath = self.tableView.indexPath(for: cell) else { return }
         
         //  Do whatever you need to do with the indexPath
         
@@ -690,6 +692,22 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cell
     })
 }
     
+    func commentButtonTapped(cell: PostCell) {
+    guard let indexPath = self.tableView.indexPath(for: cell) else { return }
+
+        print("BRIAN: Button tapped on row \(indexPath.row)")
+        let clickedPost = posts[indexPath.row]
+        selectedPost = clickedPost
+        self.checkSelectedPost()
+        
+    }
+    
+    func checkSelectedPost() {
+        performSegue(withIdentifier: "CommentsVC", sender: self)
+    }
+    
+    
+
     func checkSelectedUID() {
         if selectedUID == FIRAuth.auth()?.currentUser?.uid {
             performSegue(withIdentifier: "MyProfileVC", sender: self)

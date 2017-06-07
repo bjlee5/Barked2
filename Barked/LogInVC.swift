@@ -18,12 +18,19 @@ class LogInVC: UIViewController {
     
     @IBOutlet weak var loginField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
-
+    @IBOutlet weak var signInBtn: RoundButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        // Button Animation
+        self.signInBtn.setBackgroundColor(color: UIColor.clear, forState: .normal)
+        self.signInBtn.setTitleColor(UIColor.white, for: .normal)
+        self.signInBtn.setBackgroundColor(color: UIColor.white, forState: .highlighted)
+        self.signInBtn.setTitleColor(UIColor.purple, for: .highlighted)
+        self.signInBtn.setBackgroundColor(color: UIColor.white, forState: .selected)
+        self.signInBtn.setTitleColor(UIColor.purple, for: .selected)
+
         self.loginField.backgroundColor = UIColor.clear
         self.passwordField.backgroundColor = UIColor.clear 
         
@@ -178,4 +185,5 @@ extension UITextField{
         }
     }
 }
+
 

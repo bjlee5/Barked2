@@ -39,9 +39,18 @@ class NewUserVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
     @IBOutlet weak var pickerView: UIPickerView!
     @IBOutlet weak var breedBtn: UIButton!
     @IBOutlet weak var breedLabel: UILabel!
+    @IBOutlet weak var createBtn: RoundButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Button Animation
+        self.createBtn.setBackgroundColor(color: UIColor.clear, forState: .normal)
+         self.createBtn.setTitleColor(UIColor.white, for: .normal)
+         self.createBtn.setBackgroundColor(color: UIColor.white, forState: .highlighted)
+         self.createBtn.setTitleColor(UIColor.purple, for: .highlighted)
+         self.createBtn.setBackgroundColor(color: UIColor.white, forState: .selected)
+         self.createBtn.setTitleColor(UIColor.purple, for: .selected)
         
         let dogs = Breeds()
         let myDogs = dogs.breedList
