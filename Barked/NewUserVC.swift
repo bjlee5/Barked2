@@ -30,27 +30,28 @@ class NewUserVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
 //    @IBOutlet weak var emailField: UITextField!
 //    @IBOutlet weak var profilePic: UIImageView!
 
+
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var usernameField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var emailField: UITextField!
-    @IBOutlet weak var profilePic: UIImageView!
-    @IBOutlet weak var selectedPic: CircleView!
+    @IBOutlet weak var selectedPic: UIImageView!
     @IBOutlet weak var pickerView: UIPickerView!
     @IBOutlet weak var breedBtn: UIButton!
     @IBOutlet weak var breedLabel: UILabel!
-    @IBOutlet weak var createBtn: RoundButton!
+    @IBOutlet weak var createBtn: UIButton!
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Button Animation
         self.createBtn.setBackgroundColor(color: UIColor.clear, forState: .normal)
-         self.createBtn.setTitleColor(UIColor.white, for: .normal)
-         self.createBtn.setBackgroundColor(color: UIColor.white, forState: .highlighted)
-         self.createBtn.setTitleColor(UIColor.purple, for: .highlighted)
-         self.createBtn.setBackgroundColor(color: UIColor.white, forState: .selected)
-         self.createBtn.setTitleColor(UIColor.purple, for: .selected)
+        self.createBtn.setTitleColor(UIColor.white, for: .normal)
+        self.createBtn.setBackgroundColor(color: UIColor.white, forState: .highlighted)
+        self.createBtn.setTitleColor(UIColor.purple, for: .highlighted)
+        self.createBtn.setBackgroundColor(color: UIColor.white, forState: .selected)
+        self.createBtn.setTitleColor(UIColor.purple, for: .selected)
         
         let dogs = Breeds()
         let myDogs = dogs.breedList
@@ -64,8 +65,6 @@ class NewUserVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         self.usernameField.backgroundColor = UIColor.clear
         self.passwordField.backgroundColor = UIColor.clear
         self.emailField.backgroundColor = UIColor.clear
-        
-        selectedPic.isHidden = true
         
         imagePicker = UIImagePickerController()
         imagePicker.delegate = self
@@ -123,7 +122,6 @@ class NewUserVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
             
             selectedPic.isHidden = false
-            profilePic.isHidden = true 
             selectedPic.image = image
             imageSelected = true
         }
@@ -131,16 +129,15 @@ class NewUserVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         imagePicker.dismiss(animated: true, completion: nil)
     }
     
+    // MARK: - Actions
 
-    @IBAction func selectImgPress(_ sender: Any) {
-    
+    @IBAction func selectImagePress(_ sender: Any) {
         present(imagePicker, animated: true, completion: nil)
     }
     
     // Creating a New User //
 
-        
-    @IBAction func createUserPress(_ sender: Any) {
+    @IBAction func createPress(_ sender: Any) {
     
         guard let name = nameField.text, name != "" else {
             showWarningMessage("Error", subTitle: "You have not entered a name!")
@@ -169,7 +166,7 @@ class NewUserVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
             return
         }
         
-        let pictureData = UIImageJPEGRepresentation(self.profilePic.image!, 0.70)
+        let pictureData = UIImageJPEGRepresentation(self.selectedPic.image!, 0.70)
         
         FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: { (user, error) in
             if error != nil {
@@ -228,14 +225,15 @@ class NewUserVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         
     }
     
-    @IBAction func selectBreedPress(_ sender: Any) {
+
+    @IBAction func selectedBreed(_ sender: Any) {
         pickerView.isHidden = false
     }
     
     
 
-    @IBAction func backBtnPress(_ sender: Any) {
-    
+
+    @IBAction func backBtnPrs(_ sender: Any) {
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LogInVC")
         self.present(vc, animated: true, completion: nil)
     }

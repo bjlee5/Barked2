@@ -23,14 +23,13 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         return .lightContent
     }
     
-    @IBOutlet weak var nameField: UITextField!
+    @IBOutlet weak var nameField: UITextField! 
     @IBOutlet weak var profilePic: UIImageView!
     @IBOutlet weak var usernameField: UITextField!
     @IBOutlet weak var changeProBtn: UIButton!
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var breedField: UILabel!
     @IBOutlet weak var pickerView: UIPickerView!
-    
 
     
     override func viewDidLoad() {
@@ -150,14 +149,14 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     
     
 
-    @IBAction func changePic(_ sender: Any) {
-    
+    @IBAction func changeProPic(_ sender: Any) {
+
         present(imagePicker, animated: true, completion: nil)
     }
     
 
+
     @IBAction func updateProfile(_ sender: Any) {
-    
         let user = FIRAuth.auth()?.currentUser
         
         guard let username = usernameField.text, username != "" else {
@@ -236,9 +235,11 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     }
     
     
+
     @IBAction func editPress(_ sender: Any) {
         pickerView.isHidden = false 
     }
+
 
     @IBAction func cancelPress(_ sender: Any) {
         dismiss(animated: true, completion: nil)

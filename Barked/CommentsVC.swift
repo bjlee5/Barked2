@@ -122,29 +122,7 @@ class CommentsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.tableView.reloadData()
     }
     
-    
-    //    func configurePost() {
-    //
-    //        // Configuring the post passed via Segue
-    //
-    //        let user = selectedPost.postUser
-    //        let caption = selectedPost.caption
-    //        let currentDate = selectedPost.currentDate
-    //        let uid = selectedPost.uid
-    //
-    //        storageRef.reference(forURL: selectedPost.profilePicURL).data(withMaxSize: 2 * 1024 * 1024, completion: { (data, error) in
-    //
-    //            if error == nil {
-    //                DispatchQueue.main.async {
-    //                    if let data = data {
-    //                        let profilePic = UIImage(data: data)
-    //                    }
-    //                }
-    //            } else {
-    //                print(error!.localizedDescription)
-    //            }
-    //        })
-    //    }
+    // MARK: - TableView
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return comments.count
@@ -159,6 +137,9 @@ class CommentsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         cell.usernameField.text = comments[indexPath.row].postUser
         cell.commentField.text = comments[indexPath.row].caption
         cell.commentDate.text = comments[indexPath.row].currentDate
+        cell.setNeedsUpdateConstraints()
+        cell.updateConstraintsIfNeeded()
+
         
         FIRStorage.storage().reference(forURL: comments[indexPath.row].profilePicURL).data(withMaxSize: 1 * 1024 * 1024, completion: { (imgData, error) in
             if error == nil {
@@ -174,6 +155,7 @@ class CommentsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             delete(commentKey: comments[indexPath.row].commentKey)
@@ -195,36 +177,6 @@ class CommentsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         return UITableViewCellEditingStyle.none
         
     }
-    
-//    func commentLikesTapped(cell: CommentsCell) {
-//        guard let indexPath = self.tableView.indexPath(for: cell) else { return }
-//        
-//        //  Do whatever you need to do with the indexPath
-//        
-//        print("BRIAN: Button tapped on row \(indexPath.row)")
-//        let clickedComment = comments[indexPath.row].postKey
-//        self.likesRef = DataService.ds.REF_POSTS.child(selectedPost.postKey).child("comments").child(clickedComment).child("likes")
-//        likesRef.observeSingleEvent(of: .value, with: { (snapshot) in
-//            if let _ = snapshot.value as? NSNull {
-//                cell.likesImage.image = UIImage(named: "Paw")
-//                print("LikesRef is being executed")
-//            } else {
-//                cell.likesImage.image = UIImage(named: "PawFilled")
-//            }
-//        })
-//        
-//        likesRef.observeSingleEvent(of: .value, with: { (snapshot) in
-//            if let _ = snapshot.value as? NSNull {
-//                cell.likesImage.image = UIImage(named: "PawFilled")
-//                cell.comment.adjustLikes(addLike: true)
-//                self.likesRef.setValue(true)
-//            } else {
-//                cell.likesImage.image = UIImage(named: "Paw")
-//                cell.comment.adjustLikes(addLike: false)
-//                self.likesRef.removeValue()
-//            }
-//        })
-//    }
 
     
     @IBAction func addCommentPressed(_ sender: Any) {

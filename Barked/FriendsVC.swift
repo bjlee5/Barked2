@@ -201,94 +201,16 @@ class FriendsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, U
         }
     }
     
-        
-//        if let cell = friendsTableView.dequeueReusableCell(withIdentifier: "userCell", for: indexPath) as? UserCell {
-//        
-//        let friend: Friend
-//        if searchController.isActive && searchController.searchBar.text != "" {
-//            friend = filteredUsers[indexPath.row]
-//            
-//        } else {
-//            friend = users[indexPath.row]
-//        }
-//            
-//        cell.userName.text = friend.username
-//        cell.userID = friend.userID
-//        cell.userImage.downloadImage(from: friend.imagePath!)
-//        checkFollowing(indexPath: indexPath)
-//        return cell
-//        } else {
-//            return UserCell()
-//    }
-//}
-    
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // Nothing
+    }
 
-//        let uid = FIRAuth.auth()!.currentUser!.uid
-//        let ref = FIRDatabase.database().reference()
-//        let key = ref.child("users").childByAutoId().key
-//
-//        var isFollower = false
-//        soundEffect()
-//        playSound()
-//        
-//        ref.child("users").child(uid).child("following").queryOrderedByKey().observeSingleEvent(of: .value, with: { snapshot in
-//            if let following = snapshot.value as? [String: AnyObject] {
-//                for (ke, value) in following {
-//                    
-//                    if value as! String == self.users[indexPath.row].userID {
-//                        isFollower = true
-//                        
-//                        ref.child("users").child(uid).child("following/\(ke)").removeValue()
-//                        ref.child("users").child(self.users[indexPath.row].userID).child("followers/\(ke)").removeValue()
-//                        print("LEEZUS: This is you \(self.users[indexPath.row].userID)")
-//                        
-//                        self.friendsTableView.cellForRow(at: indexPath)?.accessoryType = .none
-//                        
-//                    }
-//                }
-//            }
-//            
-//            if !isFollower {
-//                let following = ["following/\(key)" : self.users[indexPath.row].userID]
-//                let followers = ["followers/\(key)" : uid]
-//                
-//                ref.child("users").child(uid).updateChildValues(following)
-//                ref.child("users").child(self.users[indexPath.row].userID).updateChildValues(followers)
-//                
-//                self.friendsTableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
-//                
-//            }
-//            
-//        })
-//        
-//        ref.removeAllObservers()
-//        
-//    }
-
-//    func checkFollowing(indexPath: IndexPath) {
-//        
-//        let uid = FIRAuth.auth()!.currentUser!.uid
-//        let ref = FIRDatabase.database().reference()
-//        
-//        ref.child("users").child(uid).child("following").queryOrderedByKey().observeSingleEvent(of: .value, with: { snapshot in
-//            if let following = snapshot.value as? [String: AnyObject] {
-//                for (_, value) in following {
-//                    if value as! String == self.users[indexPath.row].userID {
-//                        self.friendsTableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
-//                    }
-//                }
-//            }
-//        })
-//        
-//        ref.removeAllObservers()
-//        
-//    }
     
     
     @IBAction func backBtn(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
+    
     @IBAction func profileBtn(_ sender: Any) {
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MyProfileVC")
         self.present(vc, animated: true, completion: nil)

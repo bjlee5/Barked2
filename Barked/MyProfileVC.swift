@@ -36,6 +36,7 @@ class MyProfileVC: UIViewController, UICollectionViewDataSource, UICollectionVie
     var screenHeight: CGFloat!
     
 
+
     @IBOutlet weak var proPic: UIImageView!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -193,7 +194,7 @@ class MyProfileVC: UIViewController, UICollectionViewDataSource, UICollectionVie
     }
 
     
-    // Collection View
+    // MARK: - Collection View
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -249,10 +250,15 @@ class MyProfileVC: UIViewController, UICollectionViewDataSource, UICollectionVie
         performSegue(withIdentifier: "DeletePostVC", sender: self)
     }
     
+    // MARK: - Actions
+    
+
     @IBAction func backPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
     
+
+
     @IBAction func editProfile(_ sender: Any) {
     let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "EditProfileVC")
         self.present(vc, animated: true, completion: nil)

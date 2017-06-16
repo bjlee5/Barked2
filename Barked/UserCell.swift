@@ -32,6 +32,8 @@ class UserCell: UITableViewCell {
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var followButton: UIImageView!
     @IBOutlet weak var followBtn: UIButton!
+    @IBOutlet weak var usernameBtn: UIButton!
+    
     
     override func prepareForReuse() {
         super.prepareForReuse()

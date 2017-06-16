@@ -13,6 +13,7 @@
 		D029CA851EB27D60009788CE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D029CA831EB27D60009788CE /* Main.storyboard */; };
 		D029CA881EB27D60009788CE /* Barked.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D029CA861EB27D60009788CE /* Barked.xcdatamodeld */; };
 		D029CA8D1EB27D60009788CE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D029CA8B1EB27D60009788CE /* LaunchScreen.storyboard */; };
+		D0536CC21EF3099900DFFE94 /* BoarderedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0536CC11EF3099900DFFE94 /* BoarderedView.swift */; };
 		D0543EB51ECDE25400EBE02D /* Assets2.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0543EB41ECDE25400EBE02D /* Assets2.xcassets */; };
 		D075DAE21EB79E880099292E /* PostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D075DAE11EB79E880099292E /* PostVC.swift */; };
 		D075DAE91EB8C2800099292E /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D075DAE81EB8C2800099292E /* CircleView.swift */; };
@@ -20,7 +21,6 @@
 		D075DAED1EB8C2F40099292E /* SexyField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D075DAEC1EB8C2F40099292E /* SexyField.swift */; };
 		D075DAEF1EB8C30B0099292E /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D075DAEE1EB8C30B0099292E /* RoundButton.swift */; };
 		D075DAF11EB8C38A0099292E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D075DAF01EB8C38A0099292E /* GoogleService-Info.plist */; };
-		D075DAF51EBA40260099292E /* BorderedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D075DAF41EBA40260099292E /* BorderedButton.swift */; };
 		D075DAFD1EBA83730099292E /* ErrorBark.wav in Resources */ = {isa = PBXBuildFile; fileRef = D075DAFC1EBA83730099292E /* ErrorBark.wav */; };
 		D075DB031EBA957F0099292E /* DogShakingHead.wav in Resources */ = {isa = PBXBuildFile; fileRef = D075DB021EBA957E0099292E /* DogShakingHead.wav */; };
 		D075DB051EBA99280099292E /* Woof.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D075DB041EBA99280099292E /* Woof.mp3 */; };
@@ -66,6 +66,7 @@
 		D029CA871EB27D60009788CE /* Barked.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Barked.xcdatamodel; sourceTree = "<group>"; };
 		D029CA8C1EB27D60009788CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D029CA8E1EB27D60009788CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D0536CC11EF3099900DFFE94 /* BoarderedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoarderedView.swift; sourceTree = "<group>"; };
 		D0543EB41ECDE25400EBE02D /* Assets2.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets2.xcassets; sourceTree = "<group>"; };
 		D075DAE11EB79E880099292E /* PostVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostVC.swift; sourceTree = "<group>"; };
 		D075DAE81EB8C2800099292E /* CircleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
@@ -73,7 +74,6 @@
 		D075DAEC1EB8C2F40099292E /* SexyField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SexyField.swift; sourceTree = "<group>"; };
 		D075DAEE1EB8C30B0099292E /* RoundButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
 		D075DAF01EB8C38A0099292E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		D075DAF41EBA40260099292E /* BorderedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedButton.swift; sourceTree = "<group>"; };
 		D075DAFC1EBA83730099292E /* ErrorBark.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ErrorBark.wav; sourceTree = "<group>"; };
 		D075DB021EBA957E0099292E /* DogShakingHead.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = DogShakingHead.wav; sourceTree = "<group>"; };
 		D075DB041EBA99280099292E /* Woof.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Woof.mp3; sourceTree = "<group>"; };
@@ -169,6 +169,18 @@
 			path = Barked;
 			sourceTree = "<group>";
 		};
+		D0536CC01EF308EB00DFFE94 /* TableView Cells */ = {
+			isa = PBXGroup;
+			children = (
+				D0E2109E1EB40F1B00067DA9 /* PostCell.swift */,
+				D0E210A01EB40F5200067DA9 /* ProfileCell.swift */,
+				D0E210A21EB40F5C00067DA9 /* UserCell.swift */,
+				D075DB0C1EBC9AB00099292E /* DeletePostCell.swift */,
+				D0BEC92B1EE71854000181DA /* CommentsCell.swift */,
+			);
+			name = "TableView Cells";
+			sourceTree = "<group>";
+		};
 		D0E210891EB40D4600067DA9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -184,15 +196,11 @@
 		D0E2108A1EB40D4B00067DA9 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				D0E2109E1EB40F1B00067DA9 /* PostCell.swift */,
-				D0E210A01EB40F5200067DA9 /* ProfileCell.swift */,
-				D0E210A21EB40F5C00067DA9 /* UserCell.swift */,
-				D075DB0C1EBC9AB00099292E /* DeletePostCell.swift */,
-				D0BEC92B1EE71854000181DA /* CommentsCell.swift */,
+				D0536CC01EF308EB00DFFE94 /* TableView Cells */,
 				D0E210A41EB40F7000067DA9 /* SexyView.swift */,
+				D0536CC11EF3099900DFFE94 /* BoarderedView.swift */,
 				D075DAE81EB8C2800099292E /* CircleView.swift */,
 				D075DAEA1EB8C2DC0099292E /* SexyButton.swift */,
-				D075DAF41EBA40260099292E /* BorderedButton.swift */,
 				D075DAEC1EB8C2F40099292E /* SexyField.swift */,
 				D075DAEE1EB8C30B0099292E /* RoundButton.swift */,
 				D075DB351EC0A6080099292E /* BoarderedImages.swift */,
@@ -205,10 +213,10 @@
 			children = (
 				D029CA811EB27D60009788CE /* LogInVC.swift */,
 				D0E2108E1EB40E3200067DA9 /* NewUserVC.swift */,
+				D0E210961EB40E6F00067DA9 /* FriendsVC.swift */,
 				D0E2108C1EB40E2500067DA9 /* FeedVC.swift */,
 				D0BEC92D1EE71874000181DA /* CommentsVC.swift */,
 				D075DAE11EB79E880099292E /* PostVC.swift */,
-				D0E210961EB40E6F00067DA9 /* FriendsVC.swift */,
 				D075DB101EBCC3F50099292E /* FriendProfileVC.swift */,
 				D0E210921EB40E5000067DA9 /* MyProfileVC.swift */,
 				D075DB0A1EBB5FFB0099292E /* DeletePostVC.swift */,
@@ -398,6 +406,7 @@
 				D075DAE91EB8C2800099292E /* CircleView.swift in Sources */,
 				D075DB361EC0A6080099292E /* BoarderedImages.swift in Sources */,
 				D0E210A71EB40FAD00067DA9 /* User.swift in Sources */,
+				D0536CC21EF3099900DFFE94 /* BoarderedView.swift in Sources */,
 				D0E210951EB40E6300067DA9 /* EditProfileVC.swift in Sources */,
 				D0E2109F1EB40F1B00067DA9 /* PostCell.swift in Sources */,
 				D0BEC92C1EE71854000181DA /* CommentsCell.swift in Sources */,
@@ -408,7 +417,6 @@
 				D0E210A11EB40F5200067DA9 /* ProfileCell.swift in Sources */,
 				D0E210A91EB40FB400067DA9 /* Friend.swift in Sources */,
 				D0BEC92A1EE71805000181DA /* Comment.swift in Sources */,
-				D075DAF51EBA40260099292E /* BorderedButton.swift in Sources */,
 				D075DAE21EB79E880099292E /* PostVC.swift in Sources */,
 				D0E210AD1EB40FD100067DA9 /* Constants.swift in Sources */,
 				D0E210B11EB40FE300067DA9 /* DataService.swift in Sources */,
