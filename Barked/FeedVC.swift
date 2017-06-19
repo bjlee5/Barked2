@@ -14,8 +14,6 @@ import Foundation
 class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, CellSubclassDelegate, CommentsSubclassDelegate {
     
     
-////////////////// bestInShow() - the function I have may work - however I need to make a call to Firebase to change the bestInShow value 
-    
     // Refactor this storage ref using DataService //
     
     var posts = [Post]()
@@ -37,18 +35,20 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cell
     @IBOutlet weak var profilePic: UIImageView!
     @IBOutlet weak var currentUser: UILabel!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var segmentedController: UISegmentedControl!
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        followingFriends()
         profilePic.isHidden = true
         currentUser.isHidden = true
-        
-        self.posts.sort(by: self.sortDatesFor)
-        followingFriends()
+
+        bestInShow()
+        worstInShow()
         loadUserInfo()
-        fetchPosts()
+        segmentedSwitch()
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -63,463 +63,47 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cell
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        fetchPosts()
+
         followingFriends()
-        tableView.reloadData()
-        self.posts.sort(by: self.sortDatesFor)
+        loadUserInfo()
+        segmentedSwitch()
     }
     
     func dismissKeyboard() {
         view.endEditing(true)
     }
     
-    // MARK: - NSDate Stuff
-    
-    
-    func mayRangeContains(date: Date) -> Bool {
-        
-        let may_1_2017 = DateComponents(calendar: Calendar.current,
-                                        timeZone: TimeZone.current,
-                                        era: nil,
-                                        year: 2017,
-                                        month: 5,
-                                        day: 1).date!
-        
-        let may_31_2017 = DateComponents(calendar: Calendar.current,
-                                         timeZone: TimeZone.current,
-                                         era: nil,
-                                         year: 2017,
-                                         month: 5,
-                                         day: 31).date!
-
-        
-        let dateRange = may_1_2017 ... may_31_2017
-        
-        if dateRange.contains(date) {
-            return true
-        } else {
-            return false
-        }
-    }
-    
-    func juneRangeContains(date: Date) -> Bool {
-        
-        let june_1_2017 = DateComponents(calendar: Calendar.current,
-                                        timeZone: TimeZone.current,
-                                        era: nil,
-                                        year: 2017,
-                                        month: 6,
-                                        day: 1).date!
-        
-        let june_31_2017 = DateComponents(calendar: Calendar.current,
-                                         timeZone: TimeZone.current,
-                                         era: nil,
-                                         year: 2017,
-                                         month: 6,
-                                         day: 31).date!
-        
-        
-        let dateRange = june_1_2017 ... june_31_2017
-        
-        if dateRange.contains(date) {
-            return true
-        } else {
-            return false
-        }
-    }
-    
-    func julyRangeContains(date: Date) -> Bool {
-        
-        let july_1_2017 = DateComponents(calendar: Calendar.current,
-                                         timeZone: TimeZone.current,
-                                         era: nil,
-                                         year: 2017,
-                                         month: 7,
-                                         day: 1).date!
-        
-        let july_31_2017 = DateComponents(calendar: Calendar.current,
-                                          timeZone: TimeZone.current,
-                                          era: nil,
-                                          year: 2017,
-                                          month: 7,
-                                          day: 31).date!
-        
-        
-        let dateRange = july_1_2017 ... july_31_2017
-        
-        if dateRange.contains(date) {
-            return true
-        } else {
-            return false
-        }
-    }
-    
-    func augustRangeContains(date: Date) -> Bool {
-        
-        let august_1_2017 = DateComponents(calendar: Calendar.current,
-                                         timeZone: TimeZone.current,
-                                         era: nil,
-                                         year: 2017,
-                                         month: 8,
-                                         day: 1).date!
-        
-        let august_31_2017 = DateComponents(calendar: Calendar.current,
-                                          timeZone: TimeZone.current,
-                                          era: nil,
-                                          year: 2017,
-                                          month: 8,
-                                          day: 31).date!
-        
-        
-        let dateRange = august_1_2017 ... august_31_2017
-        
-        if dateRange.contains(date) {
-            return true
-        } else {
-            return false
-        }
-    }
-    
-    func septemberRangeContains(date: Date) -> Bool {
-        
-        let september_1_2017 = DateComponents(calendar: Calendar.current,
-                                           timeZone: TimeZone.current,
-                                           era: nil,
-                                           year: 2017,
-                                           month: 9,
-                                           day: 1).date!
-        
-        let september_31_2017 = DateComponents(calendar: Calendar.current,
-                                            timeZone: TimeZone.current,
-                                            era: nil,
-                                            year: 2017,
-                                            month: 9,
-                                            day: 30).date!
-        
-        
-        let dateRange = september_1_2017 ... september_31_2017
-        
-        if dateRange.contains(date) {
-            return true
-        } else {
-            return false
-        }
-    }
-    
-    func octoberRangeContains(date: Date) -> Bool {
-        
-        let october_1_2017 = DateComponents(calendar: Calendar.current,
-                                              timeZone: TimeZone.current,
-                                              era: nil,
-                                              year: 2017,
-                                              month: 10,
-                                              day: 1).date!
-        
-        let october_31_2017 = DateComponents(calendar: Calendar.current,
-                                               timeZone: TimeZone.current,
-                                               era: nil,
-                                               year: 2017,
-                                               month: 10,
-                                               day: 31).date!
-        
-        
-        let dateRange = october_1_2017 ... october_31_2017
-        
-        if dateRange.contains(date) {
-            return true
-        } else {
-            return false
-        }
-    }
-    
-    func novemberRangeContains(date: Date) -> Bool {
-        
-        let november_1_2017 = DateComponents(calendar: Calendar.current,
-                                            timeZone: TimeZone.current,
-                                            era: nil,
-                                            year: 2017,
-                                            month: 11,
-                                            day: 1).date!
-        
-        let november_30_2017 = DateComponents(calendar: Calendar.current,
-                                             timeZone: TimeZone.current,
-                                             era: nil,
-                                             year: 2017,
-                                             month: 11,
-                                             day: 30).date!
-        
-        
-        let dateRange = november_1_2017 ... november_30_2017
-        
-        if dateRange.contains(date) {
-            return true
-        } else {
-            return false
-        }
-    }
-    
-    func decemberRangeContains(date: Date) -> Bool {
-        
-        let december_1_2017 = DateComponents(calendar: Calendar.current,
-                                            timeZone: TimeZone.current,
-                                            era: nil,
-                                            year: 2017,
-                                            month: 12,
-                                            day: 1).date!
-        
-        let december_31_2017 = DateComponents(calendar: Calendar.current,
-                                             timeZone: TimeZone.current,
-                                             era: nil,
-                                             year: 2017,
-                                             month: 12,
-                                             day: 31).date!
-        
-        
-        let dateRange = december_1_2017 ... december_31_2017
-        
-        if dateRange.contains(date) {
-            return true
-        } else {
-            return false
-        }
-    }
-    
     // MARK: - Best in Show
-
+    
     func bestInShow() {
-        
-        var postLikes = [Int]()
+        let mostLikes = posts.map { $0.likes }.max()
+        for post in posts {
+            if post.likes >= mostLikes! {
+                let topPost = post
 
-        for post in self.posts {
-            
-            let someDate = post.currentDate
-            
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MM/dd/yy"
-            dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
-            let date = dateFormatter.date(from: someDate)
-            
-            if mayRangeContains(date: date!) {
-                
-                let myLikes = post.likes
-                postLikes.append(myLikes)
-                let mostLikes = postLikes.max()
-                
-                if post.likes >= mostLikes! {
-                
-                DataService.ds.REF_POSTS.child(post.postKey).updateChildValues(["bestInShow": true])
-            } else {
-                DataService.ds.REF_POSTS.child(post.postKey).updateChildValues(["bestInShow": false])
-            }
-        }
-    }
-}
-    
-    func juneBestInShow() {
-        
-        var junePostLikes = [Int]()
-        
-        for post in self.posts {
-            
-            let someDate = post.currentDate
-            
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MM/dd/yy"
-            dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
-            let date = dateFormatter.date(from: someDate)
-            
-            if juneRangeContains(date: date!) {
-                
-                let myLikes = post.likes
-                junePostLikes.append(myLikes)
-                let mostLikes = junePostLikes.max()
-                
-                if post.likes >= mostLikes! {
+                DataService.ds.REF_POSTS.child(topPost.postKey).observeSingleEvent(of: .value, with: { (snapshot) in
+                    topPost.adjustBestInShow(addBest: true)
+                    print("WOOBLES - Your function is being executed properly")
                     
-                    DataService.ds.REF_POSTS.child(post.postKey).updateChildValues(["bestInShow": true])
-                } else {
-                    DataService.ds.REF_POSTS.child(post.postKey).updateChildValues(["bestInShow": false])
-                }
+                })
+                
             }
         }
     }
-    
-    func julyBestInShow() {
-        
-        var julyPostLikes = [Int]()
-        
-        for post in self.posts {
-            
-            let someDate = post.currentDate
-            
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MM/dd/yy"
-            dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
-            let date = dateFormatter.date(from: someDate)
-            
-            if julyRangeContains(date: date!) {
                 
-                let myLikes = post.likes
-                julyPostLikes.append(myLikes)
-                let mostLikes = julyPostLikes.max()
-                
-                if post.likes >= mostLikes! {
-                    
-                    DataService.ds.REF_POSTS.child(post.postKey).updateChildValues(["bestInShow": true])
-                } else {
-                    DataService.ds.REF_POSTS.child(post.postKey).updateChildValues(["bestInShow": false])
+    func worstInShow() {
+        let mostLikes = posts.map { $0.likes }.max()
+        for post in posts {
+                if post.likes < mostLikes! {
+                    let otherPosts = post
+                    DataService.ds.REF_POSTS.child(otherPosts.postKey).observeSingleEvent(of: .value, with: { (snapshot) in
+                        otherPosts.adjustBestInShow(addBest: false)
+                        print("WOOBLES - Worst in SHOW!")
+                    })
                 }
+            
             }
         }
-    }
-    
-    func augustBestInShow() {
-        
-        var augustPostLikes = [Int]()
-        
-        for post in self.posts {
-            
-            let someDate = post.currentDate
-            
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MM/dd/yy"
-            dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
-            let date = dateFormatter.date(from: someDate)
-            
-            if augustRangeContains(date: date!) {
-                
-                let myLikes = post.likes
-                augustPostLikes.append(myLikes)
-                let mostLikes = augustPostLikes.max()
-                
-                if post.likes >= mostLikes! {
-                    
-                    DataService.ds.REF_POSTS.child(post.postKey).updateChildValues(["bestInShow": true])
-                } else {
-                    DataService.ds.REF_POSTS.child(post.postKey).updateChildValues(["bestInShow": false])
-                }
-            }
-        }
-    }
-    
-    func septemberBestInShow() {
-        
-        var septemberPostLikes = [Int]()
-        
-        for post in self.posts {
-            
-            let someDate = post.currentDate
-            
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MM/dd/yy"
-            dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
-            let date = dateFormatter.date(from: someDate)
-            
-            if septemberRangeContains(date: date!) {
-                
-                let myLikes = post.likes
-                septemberPostLikes.append(myLikes)
-                let mostLikes = septemberPostLikes.max()
-                
-                if post.likes >= mostLikes! {
-                    
-                    DataService.ds.REF_POSTS.child(post.postKey).updateChildValues(["bestInShow": true])
-                } else {
-                    DataService.ds.REF_POSTS.child(post.postKey).updateChildValues(["bestInShow": false])
-                }
-            }
-        }
-    }
-    
-    func octoberBestInShow() {
-        
-        var octoberPostLikes = [Int]()
-        
-        for post in self.posts {
-            
-            let someDate = post.currentDate
-            
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MM/dd/yy"
-            dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
-            let date = dateFormatter.date(from: someDate)
-            
-            if octoberRangeContains(date: date!) {
-                
-                let myLikes = post.likes
-                octoberPostLikes.append(myLikes)
-                let mostLikes = octoberPostLikes.max()
-                
-                if post.likes >= mostLikes! {
-                    
-                    DataService.ds.REF_POSTS.child(post.postKey).updateChildValues(["bestInShow": true])
-                } else {
-                    DataService.ds.REF_POSTS.child(post.postKey).updateChildValues(["bestInShow": false])
-                }
-            }
-        }
-    }
-
-    
-    func novemberBestInShow() {
-        
-        var novemberPostLikes = [Int]()
-        
-        for post in self.posts {
-            
-            let someDate = post.currentDate
-            
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MM/dd/yy"
-            dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
-            let date = dateFormatter.date(from: someDate)
-            
-            if novemberRangeContains(date: date!) {
-                
-                let myLikes = post.likes
-                novemberPostLikes.append(myLikes)
-                let mostLikes = novemberPostLikes.max()
-                
-                if post.likes >= mostLikes! {
-                    
-                    DataService.ds.REF_POSTS.child(post.postKey).updateChildValues(["bestInShow": true])
-                } else {
-                    DataService.ds.REF_POSTS.child(post.postKey).updateChildValues(["bestInShow": false])
-                }
-            }
-        }
-    }
-    
-    func decemberBestInShow() {
-        
-        var decemberPostLikes = [Int]()
-        
-        for post in self.posts {
-            
-            let someDate = post.currentDate
-            
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MM/dd/yy"
-            dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
-            let date = dateFormatter.date(from: someDate)
-            
-            if decemberRangeContains(date: date!) {
-                
-                let myLikes = post.likes
-                decemberPostLikes.append(myLikes)
-                let mostLikes = decemberPostLikes.max()
-                
-                if post.likes >= mostLikes! {
-                    
-                    DataService.ds.REF_POSTS.child(post.postKey).updateChildValues(["bestInShow": true])
-                } else {
-                    DataService.ds.REF_POSTS.child(post.postKey).updateChildValues(["bestInShow": false])
-                }
-            }
-        }
-    }
-
-
     
     func loadUserInfo(){
         userRef.observe(.value, with: { (snapshot) in
@@ -598,35 +182,27 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cell
                 for snap in snapshot {
                     print("SNAP: \(snap)")
                     
+                    
                     if let postDict = snap.value as? Dictionary<String, AnyObject> {
-                        print("POST: \(postDict)")
+            
                         if let postUser = postDict["uid"] as? String {
                             if self.following.contains(postUser) {
-                                
+                        
                                 let key = snap.key
                                 let post = Post(postKey: key, postData: postDict)
                                 self.posts.append(post)
 
                             }
                         }
-                    }
+
                 }
-                
-                self.tableView.reloadData()
-                self.posts.sort(by: self.sortDatesFor)
-                self.bestInShow()
-                self.juneBestInShow()
-                self.julyBestInShow()
-                self.augustBestInShow()
-                self.septemberBestInShow()
-                self.octoberBestInShow()
-                self.novemberBestInShow()
-                self.decemberBestInShow()
             }
-        })
-    }
+        }
+    })
+}
     
-    // User Feed //
+    
+    // MARK: - TableView
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return posts.count
@@ -635,7 +211,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cell
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let post = posts[indexPath.row]
-    
+
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as? PostCell {
             cell.delegate = self
@@ -664,6 +240,8 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cell
             
         }
     }
+    
+    // MARK: - Helper Methods
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "FriendProfileVC" {
@@ -715,6 +293,25 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cell
             performSegue(withIdentifier: "FriendProfileVC", sender: self)
         }
     }
+    
+    func segmentedSwitch() {
+        switch(self.segmentedController.selectedSegmentIndex)
+        {
+        case 0:
+            self.posts.sort(by: self.sortDatesFor)
+            break
+            
+        case 1:
+            self.posts.sort(by: self.sortLikesFor)
+            break
+            
+        default:
+            self.posts.sort(by: self.sortDatesFor)
+            break
+    }
+}
+    
+    // MARK: - Actions
 
     @IBAction func profileBtn(_ sender: Any) {
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MyProfileVC")
@@ -737,5 +334,9 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cell
         } catch let signOutError as NSError {
             print ("Error signing out: \(signOutError.localizedDescription)")
         }
+    }
+    @IBAction func segmentedPress(_ sender: Any) {
+        tableView.reloadData()
+        segmentedSwitch()
     }
 }
