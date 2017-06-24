@@ -39,6 +39,7 @@ class PostCell: UITableViewCell {
     @IBOutlet weak var cellView: UIView!
     @IBOutlet weak var bestShowPic: UIImageView!
 
+
     
     override func prepareForReuse() {
         super.prepareForReuse()

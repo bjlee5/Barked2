@@ -30,6 +30,9 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var breedField: UILabel!
     @IBOutlet weak var pickerView: UIPickerView!
+    @IBOutlet weak var cancelBtn: RoundButton!
+    @IBOutlet weak var doneBtn: RoundButton!
+
 
     
     override func viewDidLoad() {
@@ -42,7 +45,25 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         usernameField.backgroundColor = UIColor.clear
         emailField.backgroundColor = UIColor.clear
         breedField.backgroundColor = UIColor.clear
-        nameField.backgroundColor = UIColor.clear 
+        nameField.backgroundColor = UIColor.clear
+        
+        cancelBtn.titleLabel?.layer.shadowRadius = 3
+        cancelBtn.titleLabel?.layer.shadowColor = UIColor.black.cgColor
+        cancelBtn.titleLabel?.layer.shadowOffset = CGSize(width: 0, height: 1)
+        cancelBtn.titleLabel?.layer.shadowOpacity = 0.5
+        cancelBtn.titleLabel?.layer.masksToBounds = false
+        
+        doneBtn.titleLabel?.layer.shadowRadius = 3
+        doneBtn.titleLabel?.layer.shadowColor = UIColor.black.cgColor
+        doneBtn.titleLabel?.layer.shadowOffset = CGSize(width: 0, height: 1)
+        doneBtn.titleLabel?.layer.shadowOpacity = 0.5
+        doneBtn.titleLabel?.layer.masksToBounds = false
+        
+        changeProBtn.titleLabel?.layer.shadowRadius = 3
+        changeProBtn.titleLabel?.layer.shadowColor = UIColor.black.cgColor
+        changeProBtn.titleLabel?.layer.shadowOffset = CGSize(width: 0, height: 1)
+        changeProBtn.titleLabel?.layer.shadowOpacity = 0.5
+        changeProBtn.titleLabel?.layer.masksToBounds = false
         
         fetchCurrentUser()
         

@@ -17,6 +17,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cell
     // Refactor this storage ref using DataService //
     
     var posts = [Post]()
+    var testPosts = [Post]()
     static var imageCache: NSCache<NSString, UIImage> = NSCache()
     var storageRef: FIRStorage { return FIRStorage.storage() }
     var profilePicLoaded = false 
@@ -24,49 +25,83 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cell
     /// Referencing the Storage DB then, current User
     let userRef = DataService.ds.REF_BASE.child("users/\(FIRAuth.auth()!.currentUser!.uid)")
     var selectedUID: String = ""
-    var selectedPost: Post! 
-
+    var selectedPost: Post!
+    let codedLabel:UILabel = UILabel()
+    let otherLabel:UILabel = UILabel()
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
     
-
     @IBOutlet weak var profilePic: UIImageView!
     @IBOutlet weak var currentUser: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segmentedController: UISegmentedControl!
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        followingFriends()
+        // Coded Label
+        
+        codedLabel.isHidden = true
+        codedLabel.frame = CGRect(x: 100, y: 100, width: 200, height: 200)
+        codedLabel.textAlignment = .center
+        codedLabel.text = "There are no posts today"
+        codedLabel.numberOfLines=1
+        codedLabel.textColor=UIColor.gray
+        codedLabel.font=UIFont.systemFont(ofSize: 16)
+
+        view.addSubview(codedLabel)
+        codedLabel.translatesAutoresizingMaskIntoConstraints = false
+        codedLabel.centerXAnchor.constraint(equalTo: codedLabel.superview!.centerXAnchor).isActive = true
+        codedLabel.centerYAnchor.constraint(equalTo: codedLabel.superview!.centerYAnchor).isActive = true
+        
+        
+        // Other Label
+        
+        otherLabel.isHidden = true
+        otherLabel.frame = CGRect(x: 100, y: 100, width: 200, height: 200)
+        otherLabel.textAlignment = .center
+        otherLabel.text = "You are not following anyone"
+        otherLabel.numberOfLines=1
+        otherLabel.textColor=UIColor.gray
+        otherLabel.font=UIFont.systemFont(ofSize: 16)
+        
+        view.addSubview(otherLabel)
+        otherLabel.translatesAutoresizingMaskIntoConstraints = false
+        otherLabel.centerXAnchor.constraint(equalTo: otherLabel.superview!.centerXAnchor).isActive = true
+        otherLabel.centerYAnchor.constraint(equalTo: otherLabel.superview!.centerYAnchor).isActive = true
+        
+        
+        
         profilePic.isHidden = true
         currentUser.isHidden = true
-
-        bestInShow()
-        worstInShow()
+        
+        followingFriends()
         loadUserInfo()
-        segmentedSwitch()
+        tableView.reloadData()
         
         tableView.delegate = self
         tableView.dataSource = self
         tableView.contentInset = UIEdgeInsets.zero
         
-
+        
         // Dismiss Keyboard //
+        
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
-        
-    } // End ViewDidLoad
+
+    }
     
+        // End ViewDidLoad
+    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-
-        followingFriends()
+        
+        tableView.reloadData()
         loadUserInfo()
-        segmentedSwitch()
+
     }
     
     func dismissKeyboard() {
@@ -76,14 +111,14 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cell
     // MARK: - Best in Show
     
     func bestInShow() {
-        let mostLikes = posts.map { $0.likes }.max()
-        for post in posts {
+        let mostLikes = testPosts.map { $0.likes }.max()
+        for post in testPosts {
             if post.likes >= mostLikes! {
                 let topPost = post
 
                 DataService.ds.REF_POSTS.child(topPost.postKey).observeSingleEvent(of: .value, with: { (snapshot) in
                     topPost.adjustBestInShow(addBest: true)
-                    print("WOOBLES - Your function is being executed properly")
+                    print("WOOBLES - Best in show exceuted")
                     
                 })
                 
@@ -92,13 +127,13 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cell
     }
                 
     func worstInShow() {
-        let mostLikes = posts.map { $0.likes }.max()
-        for post in posts {
+        let mostLikes = testPosts.map { $0.likes }.max()
+        for post in testPosts {
                 if post.likes < mostLikes! {
                     let otherPosts = post
                     DataService.ds.REF_POSTS.child(otherPosts.postKey).observeSingleEvent(of: .value, with: { (snapshot) in
                         otherPosts.adjustBestInShow(addBest: false)
-                        print("WOOBLES - Worst in SHOW!")
+                        print("WOOBLES - Worst in show executed")
                     })
                 }
             
@@ -121,6 +156,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cell
                             self.profilePicLoaded = true
                         }
                     }
+                    
                 } else {
                     print(error!.localizedDescription)
                 }
@@ -172,6 +208,8 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cell
             }
             
             self.fetchPosts()
+            self.test()
+            self.tableView.reloadData()
         })
     }
     
@@ -201,17 +239,62 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cell
     })
 }
     
+    func test() {
+        let realDate = DateFormatter.localizedString(from: NSDate() as Date, dateStyle: DateFormatter.Style.short, timeStyle: DateFormatter.Style.none)
+        DataService.ds.REF_POSTS.observe(.value, with: { (snapshot) in
+            self.testPosts = []
+            if let snapshot = snapshot.children.allObjects as? [FIRDataSnapshot] {
+                for snap in snapshot {
+                    
+                    if let postDict = snap.value as? Dictionary<String, AnyObject> {
+                                let key = snap.key
+                                let posted = Post(postKey: key, postData: postDict)
+                        
+                            if posted.currentDate == realDate {
+                                 self.testPosts.append(posted)
+                        }
+
+                    }
+                }
+            }
+        })
+        
+        tableView.reloadData()
+    }
+    
     
     // MARK: - TableView
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return posts.count
+        switch(self.segmentedController.selectedSegmentIndex) {
+        case 0: return posts.count
+        case 1: return testPosts.count
+        default: return posts.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let post = posts[indexPath.row]
-
+        var post: Post!
+        
+//        posts.sort(by: self.sortDatesFor)
+//        post = posts[indexPath.row]
+        
+        switch(self.segmentedController.selectedSegmentIndex) {
+        
+        case 0:
+        posts.sort(by: self.sortDatesFor)
+        post = posts[indexPath.row]
+        
+        case 1:
+        testPosts.sort(by: self.sortLikesFor)
+        post = testPosts[indexPath.row]
+            
+        default:
+        posts.sort(by: self.sortDatesFor)
+        post = posts[indexPath.row]
+        break
+        }
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as? PostCell {
             cell.delegate = self
@@ -233,6 +316,8 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cell
             } else {
                 cell.configureCell(post: post)
             }
+            self.bestInShow()
+            self.worstInShow()
             return cell
         } else {
             
@@ -245,23 +330,23 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cell
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "FriendProfileVC" {
-            print("LEEZUS: Segway to FriendsVC performed!!")
             let destinationViewController = segue.destination as! FriendProfileVC
             destinationViewController.selectedUID = selectedUID
         } else if segue.identifier == "CommentsVC" {
-            print("LEEZUS: Segway to Comments VC is performed!!!")
             let destinationViewController = segue.destination as! CommentsVC
             destinationViewController.selectedPost = selectedPost
         }
     }
     
     func buttonTapped(cell: PostCell) {
+        var clickedUser = ""
         guard let indexPath = self.tableView.indexPath(for: cell) else { return }
-        
-        //  Do whatever you need to do with the indexPath
-        
-        print("BRIAN: Button tapped on row \(indexPath.row)")
-        let clickedUser = posts[indexPath.row].uid
+        switch(self.segmentedController.selectedSegmentIndex) {
+        case 0: clickedUser = posts[indexPath.row].uid
+        case 1: clickedUser = testPosts[indexPath.row].uid
+        default: clickedUser = posts[indexPath.row].uid
+        }
+
         DataService.ds.REF_BASE.child("users/\(clickedUser)").observe(.value, with: { (snapshot) in
             
             let user = Users(snapshot: snapshot)
@@ -271,21 +356,21 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cell
 }
     
     func commentButtonTapped(cell: PostCell) {
+    var clickedPost: Post!
     guard let indexPath = self.tableView.indexPath(for: cell) else { return }
-
-        print("BRIAN: Button tapped on row \(indexPath.row)")
-        let clickedPost = posts[indexPath.row]
+        switch(self.segmentedController.selectedSegmentIndex) {
+        case 0: clickedPost = posts[indexPath.row]
+        case 1: clickedPost = testPosts[indexPath.row]
+        default: clickedPost = posts[indexPath.row]
+        }
         selectedPost = clickedPost
         self.checkSelectedPost()
-        
     }
     
     func checkSelectedPost() {
         performSegue(withIdentifier: "CommentsVC", sender: self)
     }
     
-    
-
     func checkSelectedUID() {
         if selectedUID == FIRAuth.auth()?.currentUser?.uid {
             performSegue(withIdentifier: "MyProfileVC", sender: self)
@@ -293,23 +378,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cell
             performSegue(withIdentifier: "FriendProfileVC", sender: self)
         }
     }
-    
-    func segmentedSwitch() {
-        switch(self.segmentedController.selectedSegmentIndex)
-        {
-        case 0:
-            self.posts.sort(by: self.sortDatesFor)
-            break
-            
-        case 1:
-            self.posts.sort(by: self.sortLikesFor)
-            break
-            
-        default:
-            self.posts.sort(by: self.sortDatesFor)
-            break
-    }
-}
     
     // MARK: - Actions
 
@@ -335,8 +403,22 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cell
             print ("Error signing out: \(signOutError.localizedDescription)")
         }
     }
+    
     @IBAction func segmentedPress(_ sender: Any) {
         tableView.reloadData()
-        segmentedSwitch()
+
+        switch(self.segmentedController.selectedSegmentIndex) {
+        case 0:
+                codedLabel.isHidden = true
+                if posts.count <= 0 {
+                    otherLabel.isHidden = false }
+        case 1:
+            if testPosts.count <= 0 {
+                codedLabel.isHidden = false }
+            otherLabel.isHidden = true
+        default:
+            codedLabel.isHidden = true
+            otherLabel.isHidden = true
+        }
     }
 }
