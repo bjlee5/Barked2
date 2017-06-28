@@ -45,10 +45,12 @@ class FriendsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, U
         //  Do whatever you need to do with the indexPath
         
         print("BRIAN: Button tapped on row \(indexPath.row)")
-        let clickedUser = users[indexPath.row].userID
-//        DataService.ds.REF_BASE.child("users/\(clickedUser)").observe(.value, with: { (snapshot) in
-//            
-//            let user = Friend()
+        var clickedUser = users[indexPath.row].userID
+        if searchController.isActive && searchController.searchBar.text != "" {
+            clickedUser = filteredUsers[indexPath.row].userID
+        } else {
+            clickedUser = users[indexPath.row].userID
+        }
             self.selectedUID = clickedUser!
             self.checkSelectedUID()
 //        })

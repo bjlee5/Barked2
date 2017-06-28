@@ -24,14 +24,15 @@ class PostCell: UITableViewCell {
     var delegate: CellSubclassDelegate?
     var commentsDelegate: CommentsSubclassDelegate?
     var post: Post!
+    static var imageCache: NSCache<NSString, UIImage> = NSCache()
     var likesRef: FIRDatabaseReference!
     var storageRef: FIRStorage { return FIRStorage.storage() }
     
     @IBOutlet weak var userButton: UIButton!
-    @IBOutlet weak var profilePic: UIImageView!
+    @IBOutlet weak var profilePic: BoarderedCircleImage!
     @IBOutlet weak var username: UILabel!
     @IBOutlet weak var likesImage: UIImageView!
-    @IBOutlet weak var postPic: UIImageView!
+    @IBOutlet weak var postPic: BoarderedSquareImage!
     @IBOutlet weak var postText: UILabel!
     @IBOutlet weak var postUser: UILabel!
     @IBOutlet weak var likesNumber: UILabel!
@@ -39,8 +40,6 @@ class PostCell: UITableViewCell {
     @IBOutlet weak var cellView: UIView!
     @IBOutlet weak var bestShowPic: UIImageView!
 
-
-    
     override func prepareForReuse() {
         super.prepareForReuse()
         self.delegate = nil
@@ -75,7 +74,7 @@ class PostCell: UITableViewCell {
     }
     //
     
-    func configureCell(post: Post, img: UIImage? = nil, proImg: UIImage? = nil) {
+    func configureCell(post: Post, img: UIImage? = nil) {
         
 //        if post.bestInShow == true {
 //            bestShowPic.isHidden = false
@@ -94,6 +93,7 @@ class PostCell: UITableViewCell {
             self.postUser.text = "\(post.postUser)"
             self.username.text = "\(post.postUser)"
         })
+
         
         if img != nil {
             self.postPic.image = img
@@ -114,31 +114,22 @@ class PostCell: UITableViewCell {
                     
                 }
             })
-            
-            if proImg != nil {
-                self.profilePic.image = proImg
-            } else {
-                let ref = FIRStorage.storage().reference(forURL: post.profilePicURL)
-                ref.data(withMaxSize: 2 * 1024 * 1024, completion: { (proData, error) in
-                    if error != nil {
-                        print("BRIAN: Unable to download image from Firebase")
-                    } else {
-                        print("Image downloaded successfully")
-                        if let proimgData = proData {
-                            if let proImg = UIImage(data: proimgData) {
-                                self.profilePic.image = proImg
-                                FeedVC.imageCache.setObject(proImg, forKey: post.profilePicURL as NSString!)
-                            }
-                        }
-                        
-                        
-                    }
-                })
-                
-            }
-            
         }
         
+        let otherRef = FIRStorage.storage().reference(forURL: post.profilePicURL)
+        otherRef.data(withMaxSize: 2 * 1024 * 1024, completion: { (imgData, error) in
+            if error == nil {
+                DispatchQueue.main.async {
+                    if let data = imgData {
+                        self.profilePic.image = UIImage(data: data)
+                    }
+                }
+            } else {
+                print(error!.localizedDescription)
+                print("WOOBLES: BIG TIME ERRORS")
+            }
+        })
+    
         likesRef.observeSingleEvent(of: .value, with: { (snapshot) in
             if let _ = snapshot.value as? NSNull {
                 self.likesImage.image = UIImage(named: "Paw")
@@ -147,7 +138,7 @@ class PostCell: UITableViewCell {
             }
         })
     }
-    
+
     func likesTapped(sender: UIGestureRecognizer) {
         likesRef.observeSingleEvent(of: .value, with: { (snapshot) in
             if let _ = snapshot.value as? NSNull {
@@ -165,10 +156,13 @@ class PostCell: UITableViewCell {
     }
     
     
+
     @IBAction func userPressed(_ sender: Any) {
         self.delegate?.buttonTapped(cell: self)
     }
     
+
+
     @IBAction func commentPressed(_ sender: Any) {
         self.commentsDelegate?.commentButtonTapped(cell: self)
     }

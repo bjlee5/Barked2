@@ -29,7 +29,6 @@ class CommentsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var myUsername: UILabel!
     @IBOutlet weak var myComment: UILabel!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -62,7 +61,6 @@ class CommentsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             }
         })
     }
-    
     
     func loadUserInfo(){
         userRef.observe(.value, with: { (snapshot) in

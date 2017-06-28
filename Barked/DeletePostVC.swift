@@ -42,18 +42,11 @@ class DeletePostVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         let myPost = postArray[indexPath.row]
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "DeleteCell", for: indexPath) as? DeletePostCell {
-            
-            if let img = FeedVC.imageCache.object(forKey: myPost.imageURL as NSString!), let proImg = FeedVC.imageCache.object(forKey: myPost.profilePicURL as NSString!) {
-                cell.configureCell(post: myPost, img: img, proImg: proImg)
-            } else {
-                cell.configureCell(post: myPost)
-            }
+            cell.configureCell(post: myPost)
             return cell
-            
         } else {
             
             return DeletePostCell()
-            
         }
     }
     

@@ -41,6 +41,15 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cell
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        segmentedController.selectedSegmentIndex = 0
+        tableView.reloadData()
+        
+        // Observer to Update "Likes" in Realtime
+        
+        DataService.ds.REF_POSTS.observe(.value, with: { (snapshot) in
+            self.tableView.reloadData()
+        })
+        
         // Coded Label
         
         codedLabel.isHidden = true
@@ -72,14 +81,11 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cell
         otherLabel.centerXAnchor.constraint(equalTo: otherLabel.superview!.centerXAnchor).isActive = true
         otherLabel.centerYAnchor.constraint(equalTo: otherLabel.superview!.centerYAnchor).isActive = true
         
-        
-        
         profilePic.isHidden = true
         currentUser.isHidden = true
         
         followingFriends()
         loadUserInfo()
-        tableView.reloadData()
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -95,14 +101,18 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cell
     
         // End ViewDidLoad
     
-
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        segmentedController.selectedSegmentIndex = 0
+        tableView.reloadData()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        
+        segmentedController.selectedSegmentIndex = 0
         tableView.reloadData()
-        loadUserInfo()
-
     }
+    
     
     func dismissKeyboard() {
         view.endEditing(true)
@@ -259,46 +269,54 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cell
             }
         })
         
-        tableView.reloadData()
+//        tableView.reloadData()
     }
     
     
     // MARK: - TableView
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch(self.segmentedController.selectedSegmentIndex) {
-        case 0: return posts.count
-        case 1: return testPosts.count
-        default: return posts.count
+        var returnValue = 0
+        switch (segmentedController.selectedSegmentIndex) {
+        case 0:
+            print("DYEUCK - numbers of rows in section case 0")
+            returnValue = posts.count
+            break
+        case 1:
+            print("DYEUCK - numbers of rows in section case 1")
+            returnValue = testPosts.count
+            break
+        default:
+            print("DYEUCK - return 0")
+            returnValue = 0
+            break
         }
+        return returnValue
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         var post: Post!
         
-//        posts.sort(by: self.sortDatesFor)
-//        post = posts[indexPath.row]
-        
-        switch(self.segmentedController.selectedSegmentIndex) {
-        
-        case 0:
-        posts.sort(by: self.sortDatesFor)
-        post = posts[indexPath.row]
-        
-        case 1:
-        testPosts.sort(by: self.sortLikesFor)
-        post = testPosts[indexPath.row]
-            
-        default:
-        posts.sort(by: self.sortDatesFor)
-        post = posts[indexPath.row]
-        break
-        }
-        
         if let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as? PostCell {
             cell.delegate = self
             cell.commentsDelegate = self
+            
+            switch (segmentedController.selectedSegmentIndex) {
+            case 0:
+                print("DYEUCK - tableView case 0")
+                posts.sort(by: self.sortDatesFor)
+                post = posts[indexPath.row]
+            case 1:
+                print("DYEUCK - tableView case 1")
+                testPosts.sort(by: self.sortLikesFor)
+                post = testPosts[indexPath.row]
+            default:
+                print("DYEUCK - tableView case default")
+                posts.sort(by: self.sortDatesFor)
+                post = posts[indexPath.row]
+                break
+            }
             
             if post.bestInShow == true {
                 cell.bestShowPic.isHidden = false
@@ -308,23 +326,19 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cell
 
             // Cell Styling
             
-            cell.layer.borderWidth = 1.0
-            cell.layer.borderColor = UIColor.white.cgColor
-            
-            if let img = FeedVC.imageCache.object(forKey: post.imageURL as NSString!), let proImg = FeedVC.imageCache.object(forKey: post.profilePicURL as NSString!) {
-                cell.configureCell(post: post, img: img, proImg: proImg)
+            if let img = FeedVC.imageCache.object(forKey: post.imageURL as NSString!) {
+                cell.configureCell(post: post, img: img)
             } else {
-                cell.configureCell(post: post)
-            }
+            cell.configureCell(post: post)
+        }
             self.bestInShow()
             self.worstInShow()
             return cell
         } else {
-            
             return PostCell()
-            
         }
-    }
+    
+}
     
     // MARK: - Helper Methods
     
@@ -406,13 +420,15 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cell
     
     @IBAction func segmentedPress(_ sender: Any) {
         tableView.reloadData()
-
         switch(self.segmentedController.selectedSegmentIndex) {
         case 0:
-                codedLabel.isHidden = true
-                if posts.count <= 0 {
-                    otherLabel.isHidden = false }
+            print("DYEUCK - case 0 is selected")
+            codedLabel.isHidden = true
+            if posts.count <= 0 {
+                otherLabel.isHidden = false }
+            
         case 1:
+            print("DYEUCK - case 1 is selected")
             if testPosts.count <= 0 {
                 codedLabel.isHidden = false }
             otherLabel.isHidden = true

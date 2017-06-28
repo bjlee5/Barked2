@@ -221,17 +221,11 @@ class MyProfileVC: UIViewController, UICollectionViewDataSource, UICollectionVie
             cell.layer.borderColor = UIColor.white.cgColor
 //            cell.frame.size.width = screenWidth / 4
 //            cell.frame.size.height = screenWidth / 4
-            
-            if let img = FeedVC.imageCache.object(forKey: post.imageURL as NSString!) {
-                cell.configureCell(post: post, img: img)
-            } else {
-                cell.configureCell(post: post)
-            }
+
+            cell.configureCell(post: post)
             return cell
         } else {
-            
             return ProfileCell()
-            
         }
     }
     

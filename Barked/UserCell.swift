@@ -94,9 +94,8 @@ class UserCell: UITableViewCell {
             }
 
     
-    @IBAction func followPress(_ sender: Any) {
+    @IBAction func followPressed(_ sender: Any) {
         self.userDelegate?.buttonTapped(cell: self)
-
     }
     
     @IBAction func labelPress(_ sender: Any) {

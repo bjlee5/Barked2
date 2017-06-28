@@ -13,8 +13,8 @@
 		D029CA851EB27D60009788CE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D029CA831EB27D60009788CE /* Main.storyboard */; };
 		D029CA881EB27D60009788CE /* Barked.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D029CA861EB27D60009788CE /* Barked.xcdatamodeld */; };
 		D029CA8D1EB27D60009788CE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D029CA8B1EB27D60009788CE /* LaunchScreen.storyboard */; };
+		D03585361F01664B00C9C4A3 /* Assets2.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D03585351F01664B00C9C4A3 /* Assets2.xcassets */; };
 		D0536CC21EF3099900DFFE94 /* BoarderedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0536CC11EF3099900DFFE94 /* BoarderedView.swift */; };
-		D0543EB51ECDE25400EBE02D /* Assets2.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0543EB41ECDE25400EBE02D /* Assets2.xcassets */; };
 		D075DAE21EB79E880099292E /* PostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D075DAE11EB79E880099292E /* PostVC.swift */; };
 		D075DAE91EB8C2800099292E /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D075DAE81EB8C2800099292E /* CircleView.swift */; };
 		D075DAEB1EB8C2DC0099292E /* SexyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D075DAEA1EB8C2DC0099292E /* SexyButton.swift */; };
@@ -66,8 +66,8 @@
 		D029CA871EB27D60009788CE /* Barked.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Barked.xcdatamodel; sourceTree = "<group>"; };
 		D029CA8C1EB27D60009788CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D029CA8E1EB27D60009788CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D03585351F01664B00C9C4A3 /* Assets2.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets2.xcassets; path = ../Assets2.xcassets; sourceTree = "<group>"; };
 		D0536CC11EF3099900DFFE94 /* BoarderedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoarderedView.swift; sourceTree = "<group>"; };
-		D0543EB41ECDE25400EBE02D /* Assets2.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets2.xcassets; sourceTree = "<group>"; };
 		D075DAE11EB79E880099292E /* PostVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostVC.swift; sourceTree = "<group>"; };
 		D075DAE81EB8C2800099292E /* CircleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		D075DAEA1EB8C2DC0099292E /* SexyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SexyButton.swift; sourceTree = "<group>"; };
@@ -164,7 +164,7 @@
 				D029CA8E1EB27D60009788CE /* Info.plist */,
 				D075DAF01EB8C38A0099292E /* GoogleService-Info.plist */,
 				D029CA861EB27D60009788CE /* Barked.xcdatamodeld */,
-				D0543EB41ECDE25400EBE02D /* Assets2.xcassets */,
+				D03585351F01664B00C9C4A3 /* Assets2.xcassets */,
 			);
 			path = Barked;
 			sourceTree = "<group>";
@@ -291,7 +291,10 @@
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Push = {
-								enabled = 1;
+								enabled = 0;
+							};
+							com.apple.iCloud = {
+								enabled = 0;
 							};
 						};
 					};
@@ -321,8 +324,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D075DB091EBB47C30099292E /* Liked.mp3 in Resources */,
-				D0543EB51ECDE25400EBE02D /* Assets2.xcassets in Resources */,
 				D075DB071EBA992B0099292E /* Post.mp3 in Resources */,
+				D03585361F01664B00C9C4A3 /* Assets2.xcassets in Resources */,
 				D075DAF11EB8C38A0099292E /* GoogleService-Info.plist in Resources */,
 				D029CA8D1EB27D60009788CE /* LaunchScreen.storyboard in Resources */,
 				D075DB031EBA957F0099292E /* DogShakingHead.wav in Resources */,
@@ -467,9 +470,11 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Brian Lee (6225SLKFTH)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Brian Lee (6225SLKFTH)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 6225SLKFTH;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -489,6 +494,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "4dc90d93-bd36-4ba4-9606-362afa1a8031";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -517,9 +523,11 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Brian Lee (6225SLKFTH)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Brian Lee (6225SLKFTH)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 6225SLKFTH;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -532,6 +540,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "4dc90d93-bd36-4ba4-9606-362afa1a8031";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -544,12 +554,14 @@
 			baseConfigurationReference = 29E9348A9208B1BA8035D183 /* Pods-Barked.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Barked/Barked.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 6225SLKFTH;
 				INFOPLIST_FILE = Barked/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lionseye.Barked;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -559,12 +571,14 @@
 			baseConfigurationReference = 89E26C5A935EC24D70D0A101 /* Pods-Barked.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Barked/Barked.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 6225SLKFTH;
 				INFOPLIST_FILE = Barked/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lionseye.Barked;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

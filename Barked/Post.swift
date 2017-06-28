@@ -11,7 +11,7 @@ import Firebase
 
 class Post {
     private var _caption: String!
-    private var _imageURL: String!
+    private var _imageURL: String! 
     private var _likes: Int!
     private var _postUser: String!
     private var _profilePicURL: String!

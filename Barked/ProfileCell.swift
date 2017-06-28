@@ -20,31 +20,26 @@ class ProfileCell: UICollectionViewCell {
         return FIRStorage.storage()
     }
     
-    func configureCell(post: Post, img: UIImage? = nil) {
+    
+    func configureCell(post: Post) {
         
         self.post = post
         
-        if img != nil {
-            self.myImage.image = img
-        } else {
-            let ref = FIRStorage.storage().reference(forURL: post.imageURL)
-            ref.data(withMaxSize: 2 * 1024 * 1024, completion: { (data, error) in
-                if error != nil {
-                    print("BRIAN: Unable to download image from Firebase")
-                } else {
-                    print("Image downloaded successfully")
-                    if let imgData = data {
-                        if let img = UIImage(data: imgData) {
-                            self.myImage.image = img
-                            FeedVC.imageCache.setObject(img, forKey: post.imageURL as NSString!)
-                        }
+        let ref = FIRStorage.storage().reference(forURL: post.imageURL)
+        ref.data(withMaxSize: 2 * 1024 * 1024, completion: { (imgData, error) in
+            if error == nil {
+                DispatchQueue.main.async {
+                    if let data = imgData {
+                        self.myImage.image = UIImage(data: data)
                     }
-                    
-                    
                 }
-            })
-        }
+            } else {
+                print(error!.localizedDescription)
+                print("WOOBLES: BIG TIME ERRORS")
+            }
+        })
+
     }
-    
+
 }
 
