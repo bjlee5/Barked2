@@ -43,6 +43,11 @@ class CommentsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         loadMyComment()
         loadUserInfo()
         fetchComments()
+        
+        // Dismiss Keyboard //
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+        
     }
     
     func loadMyComment() {

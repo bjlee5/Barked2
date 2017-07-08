@@ -44,6 +44,9 @@ class PostVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCon
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
         
+        // Dismiss Keyboard //
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
     }
     
     

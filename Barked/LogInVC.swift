@@ -51,10 +51,9 @@ class LogInVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         if let _ = KeychainWrapper.standard.string(forKey: KEY_UID){
             print("BRIAN: ID found in keychain")
-            //            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FeedVC")
-            //            self.present(vc, animated: true, completion: nil)
+            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Tab")
+            self.present(vc, animated: true, completion: nil)
         }
-        
     }
     
     func dismissKeyboard() {

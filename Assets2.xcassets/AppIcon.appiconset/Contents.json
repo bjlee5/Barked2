@@ -87,24 +87,25 @@
     {
       "size" : "76x76",
       "idiom" : "ipad",
-      "filename" : "Group 4@2x-7.png",
+      "filename" : "LogoIcon152.png",
       "scale" : "1x"
     },
     {
       "size" : "76x76",
       "idiom" : "ipad",
-      "filename" : "Group 4@3x-7.png",
+      "filename" : "LogoIcon152-1.png",
       "scale" : "2x"
     },
     {
       "size" : "83.5x83.5",
       "idiom" : "ipad",
-      "filename" : "Group 4@3x-8.png",
+      "filename" : "LogoIcon167.png",
       "scale" : "2x"
     },
     {
-      "idiom" : "ios-marketing",
       "size" : "1024x1024",
+      "idiom" : "ios-marketing",
+      "filename" : "LogoIcon1024.png",
       "scale" : "1x"
     }
   ],

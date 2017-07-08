@@ -37,6 +37,9 @@ class FriendsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, U
         
         friendsTableView.backgroundView = UIImageView(image: UIImage(named: "FFBackground"))
         
+        // Dismiss Keyboard //
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
     }
     
     func profileBtnTapped(cell: UserCell) {
