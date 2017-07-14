@@ -50,6 +50,10 @@ class CommentsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
     }
     
+    func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
     func loadMyComment() {
         myUsername.text = selectedPost.postUser
         myComment.text = selectedPost.caption

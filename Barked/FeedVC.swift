@@ -344,6 +344,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cell
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "FriendProfileVC" {
+            print("LEEZUS: Segway to FriendsVC performed!!")
             let destinationViewController = segue.destination as! FriendProfileVC
             destinationViewController.selectedUID = selectedUID
         } else if segue.identifier == "CommentsVC" {
@@ -351,7 +352,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cell
             destinationViewController.selectedPost = selectedPost
         }
     }
-    
+        
     func buttonTapped(cell: PostCell) {
         var clickedUser = ""
         guard let indexPath = self.tableView.indexPath(for: cell) else { return }
@@ -386,6 +387,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cell
     }
     
     func checkSelectedUID() {
+        print("LEEZUS: We're checking the selected UID")
         if selectedUID == FIRAuth.auth()?.currentUser?.uid {
             performSegue(withIdentifier: "MyProfileVC", sender: self)
         } else if selectedUID != "" {
@@ -396,8 +398,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cell
     // MARK: - Actions
 
     @IBAction func profileBtn(_ sender: Any) {
-        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MyProfileVC")
-        self.present(vc, animated: true, completion: nil)
+        performSegue(withIdentifier: "MyProfileVC", sender: self)
     }
 
     // Logging Out //

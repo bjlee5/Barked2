@@ -36,10 +36,6 @@ class FriendsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, U
         friendsTableView.tableHeaderView = searchController.searchBar
         
         friendsTableView.backgroundView = UIImageView(image: UIImage(named: "FFBackground"))
-        
-        // Dismiss Keyboard //
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
-        view.addGestureRecognizer(tap)
     }
     
     func profileBtnTapped(cell: UserCell) {
@@ -217,8 +213,7 @@ class FriendsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, U
     }
     
     @IBAction func profileBtn(_ sender: Any) {
-        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MyProfileVC")
-        self.present(vc, animated: true, completion: nil)
+        performSegue(withIdentifier: "MyProfileVC", sender: self)
     }
     
     // Play Sounds
