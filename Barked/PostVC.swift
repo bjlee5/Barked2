@@ -93,8 +93,6 @@ class PostVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCon
         imagePicker.dismiss(animated: true, completion: nil)
     }
     
-
- 
     @IBAction func chooseImage(_ sender: Any) {
         present(imagePicker, animated: true, completion: nil)
         chooseImage.isHidden = true

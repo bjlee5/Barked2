@@ -231,12 +231,6 @@ class FriendProfileVC: UIViewController, UICollectionViewDataSource, UICollectio
         performSegue(withIdentifier: "FriendPostVC", sender: self)
     }
     
-    @IBAction func profileBtn(_ sender: Any) {
-        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MyProfileVC")
-        self.present(vc, animated: true, completion: nil)
-    }
-    
-
     @IBAction func backPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
