@@ -9,8 +9,14 @@
 import UIKit
 import Firebase
 
+
+protocol MyCommentSubclassDelegate: class {
+    func commentButtonTapped(cell: DeletePostCell)
+}
+
 class DeletePostCell: UITableViewCell {
     
+    var myCommentsDelegate: MyCommentSubclassDelegate?
     var likesRef: FIRDatabaseReference!
     var storageRef: FIRStorage {
         return FIRStorage.storage()
@@ -53,7 +59,11 @@ class DeletePostCell: UITableViewCell {
             }
         })
         
-
     }
     
+    // MARK: - Actions
+    
+    @IBAction func commentPressed(_ sender: Any) {
+         self.myCommentsDelegate?.commentButtonTapped(cell: self)
+    }
 }

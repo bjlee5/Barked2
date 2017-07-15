@@ -173,8 +173,8 @@
 			isa = PBXGroup;
 			children = (
 				D0E2109E1EB40F1B00067DA9 /* PostCell.swift */,
-				D0E210A01EB40F5200067DA9 /* ProfileCell.swift */,
 				D0E210A21EB40F5C00067DA9 /* UserCell.swift */,
+				D0E210A01EB40F5200067DA9 /* ProfileCell.swift */,
 				D075DB0C1EBC9AB00099292E /* DeletePostCell.swift */,
 				D0BEC92B1EE71854000181DA /* CommentsCell.swift */,
 			);

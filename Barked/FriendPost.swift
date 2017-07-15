@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import SCLAlertView
 
-class FriendPostVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class FriendPostVC: UIViewController, UITableViewDelegate, UITableViewDataSource, MyCommentSubclassDelegate {
     
     var postArray = [Post]()
     var selectedPost: Post!
@@ -42,7 +42,7 @@ class FriendPostVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         let myPost = postArray[indexPath.row]
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "DeleteCell", for: indexPath) as? DeletePostCell {
-
+            cell.myCommentsDelegate = self
             cell.configureCell(post: myPost)
             return cell
             
@@ -78,6 +78,23 @@ class FriendPostVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         self.postArray.remove(at: forRowAt.row)
         self.tableView.deleteRows(at: [forRowAt], with: .automatic)
         
+    }
+    
+    // MARK: - Helper Methods
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "CommentsVC" {
+            let destinationViewController = segue.destination as! CommentsVC
+            destinationViewController.selectedPost = selectedPost
+        }
+    }
+    
+    func commentButtonTapped(cell: DeletePostCell) {
+        self.checkSelectedPost()
+    }
+    
+    func checkSelectedPost() {
+        performSegue(withIdentifier: "CommentsVC", sender: self)
     }
     
     

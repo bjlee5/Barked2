@@ -10,10 +10,10 @@ import UIKit
 import Firebase
 import SCLAlertView
 
-class DeletePostVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class DeletePostVC: UIViewController, UITableViewDelegate, UITableViewDataSource, MyCommentSubclassDelegate {
     
-    var postArray = [Post]()
     var selectedPost: Post!
+    var postArray = [Post]()
     var storageRef: FIRStorage {
         return FIRStorage.storage()
     }
@@ -33,6 +33,8 @@ class DeletePostVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         
     }
     
+    // MARK: - TableView
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return postArray.count
     }
@@ -43,6 +45,7 @@ class DeletePostVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "DeleteCell", for: indexPath) as? DeletePostCell {
             cell.configureCell(post: myPost)
+            cell.myCommentsDelegate = self 
             return cell
         } else {
             
@@ -77,7 +80,8 @@ class DeletePostVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         
     }
 
-
+    
+    // MARK: - Actions
 
     @IBAction func backPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
@@ -101,6 +105,23 @@ class DeletePostVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         
     }
     
+    // MARK: - Helper Methods
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            if segue.identifier == "CommentsVC" {
+            let destinationViewController = segue.destination as! CommentsVC
+            destinationViewController.selectedPost = selectedPost
+        }
+    }
+    
+    func commentButtonTapped(cell: DeletePostCell) {
+        self.checkSelectedPost()
+    }
+    
+    func checkSelectedPost() {
+        performSegue(withIdentifier: "CommentsVC", sender: self)
+    }
+    
     func delete() {
         
         let ref = FIRDatabase.database().reference()
@@ -122,7 +143,6 @@ class DeletePostVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 
             }
         }
-        
         
         self.postArray.remove(at: 0)
         self.tableView.reloadData()

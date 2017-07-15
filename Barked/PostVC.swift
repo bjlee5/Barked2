@@ -25,7 +25,6 @@ class PostVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCon
         return .lightContent
     }
     
-   
     @IBOutlet weak var postImage: UIImageView!
     @IBOutlet weak var postText: UITextField! 
     @IBOutlet weak var profilePic: UIImageView!

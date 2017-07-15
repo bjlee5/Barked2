@@ -9,9 +9,10 @@
 import UIKit
 import Firebase
 
+
+
 class ProfileCell: UICollectionViewCell {
     
- 
     @IBOutlet weak var myImage: UIImageView!
     
     var post: Post!
